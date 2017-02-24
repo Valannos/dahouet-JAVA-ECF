@@ -49,11 +49,26 @@ public abstract class Personne {
         this.email = email;
     }
 
-    @Override
-    public String toString() {
+    public int getAnneeNaissance() {
+        return anneeNaissance;
+    }
+
+    public void setAnneeNaissance(int anneeNaissance) {
+        this.anneeNaissance = anneeNaissance;
+    }
+
+    public int getAge() {
+
         Calendar cal = Calendar.getInstance();
         int age = cal.get(Calendar.YEAR) - this.anneeNaissance;
-        return ", name=" + name + ", firstname=" + firstname + ", email=" + email + ", age=" + age + '}' + "\n";
+        return age;
+
+    }
+
+    @Override
+    public String toString() {
+        int age = getAge();
+        return "name=" + name + ", firstname=" + firstname + ", email=" + email + ", age=" + age + '}' /*+ "\n"*/;
     }
 
 }

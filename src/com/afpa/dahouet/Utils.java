@@ -5,6 +5,12 @@
  */
 package com.afpa.dahouet;
 
+import com.afpa.dahouet.model.Personne;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 /**
  *
  * @author Afpa
@@ -105,11 +111,46 @@ public class Utils {
 
         return true;
     }
+
+    public static String toStringList(List<Personne> personnes) {
+
+        String listing = "";
+
+        for (Personne personne : personnes) {
+
+            listing += personne.toString() + "\n";
+
+        }
+
+        return listing;
+    }
+
+    public static int averageAge(List<Personne> personnes) {
+
+        int somme = 0;
+        for (Personne personne : personnes) {
+
+            somme += personne.getAge();
+
+        }
+        int moy = (int) (somme / personnes.size());
+
+        return moy;
+    }
     
-    public static String toStringList() {
+    public static int medianAge(List<Personne> personnes) {
+        
+        int median = 0;
+        Collections.sort(personnes, new Comparator<Personne>() {
+            @Override
+            public int compare(Personne o1, Personne o2) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+           
+        });
         
         
-        return "";
+        return median;
     }
 
 }

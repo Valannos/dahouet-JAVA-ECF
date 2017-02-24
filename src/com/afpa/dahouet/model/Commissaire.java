@@ -20,7 +20,7 @@ public class Commissaire extends Personne {
 
     @Override
     public String toString() {
-        return "Commissaire{" + "nameComite=" + nameComite + super.toString();
+        return "Commissaire{" + "nameComite=" + nameComite + ", " +  super.toString();
     }
     
 

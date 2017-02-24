@@ -48,8 +48,7 @@ public class Licencie extends Personne {
     @Override
     public String toString() {
 
-      
-        return "Licencie{" + "numLicence=" + numLicence + ", pointsFFV=" + pointsFFV + ", anneeLicence=" + anneeLicence  + super.toString();
+        return "Licencie{" + "numLicence=" + numLicence + ", pointsFFV=" + pointsFFV + ", anneeLicence=" + anneeLicence + ", " + super.toString();
     }
 
 }

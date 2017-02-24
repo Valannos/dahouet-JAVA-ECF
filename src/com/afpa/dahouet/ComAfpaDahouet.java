@@ -35,10 +35,15 @@ public class ComAfpaDahouet {
         personnes.add(lic3);
         Commissaire comi1 = new Commissaire("Sud-Bretagne", "Goff", "Erwann", "ccc@ccc.com", 1978);
         personnes.add(comi1);
+        Proprietaire pro1 = new Proprietaire("Le Hire", "Dédé", "sfggf@gsr.fr", 1970);
+        personnes.add(pro1);
 
         Date date = new Date();
 
-        System.out.print(personnes.toString());
+        System.out.print(Utils.toStringList(personnes));
+        
+        
+        System.out.println("Moyenne d\'âge : " + Utils.averageAge(personnes));
 
         try {
             double pts = lic1.calculPoints(date, 20.5);

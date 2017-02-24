@@ -14,11 +14,10 @@ public class Proprietaire extends Personne {
     public Proprietaire(String name, String firstname, String email, int anneeNaissance) {
         super(name, firstname, email, anneeNaissance);
     }
-    
-  
 
-  
-    
-    
-    
+    @Override
+    public String toString() {
+        return "Proprietaire{"   + super.toString();
+    }
+
 }
