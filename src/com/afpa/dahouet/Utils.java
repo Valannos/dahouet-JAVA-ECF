@@ -6,10 +6,11 @@
 package com.afpa.dahouet;
 
 import com.afpa.dahouet.model.Personne;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
+
 
 /**
  *
@@ -19,94 +20,61 @@ public class Utils {
 
     public static boolean checkMail(String mail) {
 
-        boolean check = false;
-        int atSignPosition = 0;
-        int pointPosition = 0;
+        int atSignPosition = -1;
+        int pointPosition = -1;
 
         for (int i = 0; i < mail.length(); i++) {
             System.out.println("Checking @ position : " + i);
 
             if (mail.charAt(i) == '@') {
 
-                check = true;
                 atSignPosition = i;
                 System.out.println("FOUND @ : " + i);
                 break;
             }
         }
 
-        if (!check) {
-
+        if (atSignPosition == -1) {
             return false;
-
         }
-
-        check = false;
 
         for (int i = atSignPosition + 1; i < mail.length(); i++) {
-
             System.out.println("Checking . position : " + i);
             if (mail.charAt(i) == '.') {
-
-                check = true;
+             
                 pointPosition = i;
                 System.out.println("FOUND . : " + i);
-
                 break;
-
             }
-
         }
 
-        if (!check) {
+        if (pointPosition == -1) {
+            return false;
+        }
+
+        String substrBfrAt = mail.substring(0, atSignPosition);
+        System.out.println(substrBfrAt);
+        System.out.println("First part lenght : " + substrBfrAt.length());
+
+        if (substrBfrAt.length() < 2) {
+            return false;
+        }
+
+        String substrBtwAtAndPt = mail.substring(atSignPosition + 1, pointPosition);
+        System.out.println(substrBtwAtAndPt);
+        System.out.println("Middle part lenght : " + substrBtwAtAndPt.length());
+
+        if (substrBtwAtAndPt.length() < 2) {
 
             return false;
-
         }
 
-        String substr1 = mail.substring(0, atSignPosition);
-        System.out.println(substr1);
-        System.out.println("First part lenght : " + substr1.length());
-
-        if (substr1.length() < 2) {
-
-            check = false;
-
-        }
-
-        if (!check) {
+        String substrAftPt = mail.substring(pointPosition + 1, mail.length());
+        System.out.println(substrAftPt);
+        System.out.println("Laster part lenght :" + substrAftPt.length());
+        if (substrAftPt.length() < 2) {
 
             return false;
-
-        }
-
-        String substr2 = mail.substring(atSignPosition + 1, pointPosition);
-        System.out.println(substr2);
-        System.out.println("Middle part lenght : " + substr2.length());
-
-        if (substr2.length() < 2) {
-
-            check = false;
-        }
-
-        if (!check) {
-
-            return false;
-
-        }
-
-        String substr3 = mail.substring(pointPosition + 1, mail.length());
-        System.out.println(substr3);
-        System.out.println("Laster part lenght :" + substr3.length());
-        if (substr3.length() < 2) {
-
-            check = false;
-        }
-
-        if (!check) {
-
-            return false;
-
         }
 
         return true;
@@ -125,6 +93,13 @@ public class Utils {
         return listing;
     }
 
+    /**
+     *
+     * @param personnes a list of <b>Personne</b> objects
+     * @see Personne
+     * @return An integer value equals to the average of all Personne instance
+     * provided by the list
+     */
     public static int averageAge(List<Personne> personnes) {
 
         int somme = 0;
@@ -137,20 +112,20 @@ public class Utils {
 
         return moy;
     }
-    
+
     public static int medianAge(List<Personne> personnes) {
-        
+
         int median = 0;
-        Collections.sort(personnes, new Comparator<Personne>() {
-            @Override
-            public int compare(Personne o1, Personne o2) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-           
-        });
-        
-        
+        Collections.sort(personnes);
+
+        int indexMedian = (personnes.size() + 1) / 2;
+        System.out.println(indexMedian);
+        median = personnes.get(indexMedian).getAge();
+
         return median;
     }
+    
+
+   
 
 }

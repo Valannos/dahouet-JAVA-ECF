@@ -6,12 +6,15 @@
 package com.afpa.dahouet.model;
 
 import java.util.Calendar;
+import java.util.Comparator;
 
 /**
  *
- * @author Afpa
+ * @author Vanel
+ * @see
+ * http://beginnersbook.com/2013/12/java-arraylist-of-object-sort-example-comparable-and-comparator/
  */
-public abstract class Personne {
+public abstract class Personne implements Comparable {
 
     protected String name;
     protected String firstname;
@@ -69,6 +72,12 @@ public abstract class Personne {
     public String toString() {
         int age = getAge();
         return "name=" + name + ", firstname=" + firstname + ", email=" + email + ", age=" + age + '}' /*+ "\n"*/;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Personne p = (Personne) o;
+        return this.getAge() - p.getAge();
     }
 
 }

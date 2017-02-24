@@ -18,6 +18,16 @@ public class Commissaire extends Personne {
         this.nameComite = nameComite;
     }
 
+    public String getNameComite() {
+        return nameComite;
+    }
+
+    public void setNameComite(String nameComite) {
+        this.nameComite = nameComite;
+    }
+    
+    
+
     @Override
     public String toString() {
         return "Commissaire{" + "nameComite=" + nameComite + ", " +  super.toString();
