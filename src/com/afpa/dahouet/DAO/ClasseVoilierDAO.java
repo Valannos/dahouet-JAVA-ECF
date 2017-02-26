@@ -21,6 +21,11 @@ import java.util.logging.Logger;
  */
 public class ClasseVoilierDAO {
 
+    /**
+     * Fetch ClasseVoilier from database and build a list of ClasseVoilier objcts
+     * @return a list of ClassVoilier
+     */
+    
     public static List<ClasseVoilier> findAll() {
 
         List<ClasseVoilier> cvs = null;
