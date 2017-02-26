@@ -11,8 +11,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import com.afpa.dahouet.Utils;
-import java.util.Arrays;
-import junit.framework.AssertionFailedError;
 
 /**
  *
@@ -43,13 +41,15 @@ public class TestUtils {
     public final void testCheckMailAtPresence() {
 
         assertFalse(Utils.checkMail("eeeeee"));
+        System.err.println("No @ found");
         assertFalse(Utils.checkMail("aa@aafr"));
-
+        System.err.println("No . found");
         assertFalse(Utils.checkMail("a@aa.frr"));
-        System.err.println("Substring size before @ is below 2");
+        System.err.println("Substring before @ size is below 2");
         assertFalse(Utils.checkMail("aa@f.frr"));
+        System.err.println("Substring between @ and . size is below 2");
         assertFalse(Utils.checkMail("aa@ff.r"));
-        assertFalse(Utils.checkMail("aa@ff.r"));
+        System.err.println("Substring after . size is below 2");
         assertTrue(Utils.checkMail("aa@ff.fr"));
         System.err.println("email is valid");
 

@@ -15,6 +15,12 @@ public class Proprietaire extends Personne {
         super(name, firstname, email, anneeNaissance);
     }
 
+    public Proprietaire(String name, String firstname, int anneeNaissance) {
+        super(name, firstname, anneeNaissance);
+    }
+    
+    
+
     @Override
     public String toString() {
         return "Proprietaire{"   + super.toString();

@@ -5,6 +5,7 @@
  */
 package com.afpa.dahouet;
 
+import com.afpa.dahouet.DAO.ProprietaireDAO;
 import com.afpa.dahouet.model.*;
 import com.afpa.dahouet.model.Licencie;
 import java.util.ArrayList;
@@ -51,9 +52,24 @@ public class Dahouet {
             System.out.print("Nombre de pts : " + pts);
         } catch (MismatchYearsException e) {
 
-            System.err.println("ERREUR : " + e.getMessage());
+            System.err.println("ERREUR : " + e.getClass() + " : " + e.getMessage());
+        }
+        
+        
+        
+        
+         List<Proprietaire> proprietaires = ProprietaireDAO.findAll();
+        for (Proprietaire proprietaire : proprietaires) {
+            
+            System.out.println(proprietaire.toString());
+            
         }
 
     }
+    
+   
+    
+  
+    
 
 }

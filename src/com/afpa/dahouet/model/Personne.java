@@ -6,7 +6,6 @@
 package com.afpa.dahouet.model;
 
 import java.util.Calendar;
-import java.util.Comparator;
 
 /**
  *
@@ -27,6 +26,14 @@ public abstract class Personne implements Comparable {
         this.email = email;
         this.anneeNaissance = anneeNaissance;
     }
+
+    public Personne(String name, String firstname, int anneeNaissance) {
+        this.name = name;
+        this.firstname = firstname;
+        this.anneeNaissance = anneeNaissance;
+    }
+    
+    
 
     public String getName() {
         return name;
