@@ -8,6 +8,7 @@ package com.afpa.dahouet.DAO;
 import com.afpa.dahouet.model.Proprietaire;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -52,6 +53,38 @@ public class ProprietaireDAO {
         
         return proprietaires;
     }
+      
+      public static Proprietaire findById(int id) {
+          
+          Proprietaire pro = null;
+           Connection connect = DBConnection.gettingConnected();
+          PreparedStatement ps = null;
+        
+        try {
+            
+           
+            String sql = "SELECT pers.nomPersonne, pers.prenomPersonne, pers.dateNaissance FROM proprietaire pro INNER JOIN personne pers ON pers.id = pro.id_Personne WHERE pro.id = ?";
+             ps = connect.prepareStatement(sql);
+             ps.setInt(1, id);            
+             ResultSet res = ps.executeQuery();
+            
+            while (res.next()) {
+                
+                Date date = res.getDate("pers.dateNaissance");
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(date);
+               pro = new Proprietaire(res.getString("pers.prenomPersonne"), res.getString("pers.nomPersonne"), cal.get(Calendar.YEAR));
+           
+                
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(VoilierDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+          
+          
+          return pro;
+      }
     
     
 }

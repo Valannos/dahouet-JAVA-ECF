@@ -6,6 +6,7 @@
 package com.afpa.dahouet;
 
 import com.afpa.dahouet.DAO.ProprietaireDAO;
+import com.afpa.dahouet.DAO.VoilierDAO;
 import com.afpa.dahouet.model.*;
 import com.afpa.dahouet.model.Licencie;
 import java.util.ArrayList;
@@ -58,12 +59,17 @@ public class Dahouet {
         
         
         
-         List<Proprietaire> proprietaires = ProprietaireDAO.findAll();
-        for (Proprietaire proprietaire : proprietaires) {
-            
-            System.out.println(proprietaire.toString());
-            
-        }
+//         List<Proprietaire> proprietaires = ProprietaireDAO.findAll();
+//        for (Proprietaire proprietaire : proprietaires) {
+//            
+//            System.out.println(proprietaire.toString());
+//            
+//        }
+//        List<Voilier> vs = VoilierDAO.findAll();
+//        for (Voilier v : vs) {
+//            System.out.println(v.getNom());
+//        }
+   
 
     }
     

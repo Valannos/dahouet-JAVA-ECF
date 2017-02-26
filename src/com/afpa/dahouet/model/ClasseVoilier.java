@@ -11,19 +11,26 @@ package com.afpa.dahouet.model;
  */
 
 
-class ClasseVoillier {
+public class ClasseVoilier {
     
     private int id;
     private String name;
     private char type;
     private double coef;
 
-    public ClasseVoillier(int id, String name, char type, double coef) {
+    public ClasseVoilier(int id, String name, char type, double coef) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.coef = coef;
     }
+
+    public ClasseVoilier(String name, char type, double coef) {
+        this.name = name;
+        this.type = type;
+        this.coef = coef;
+    }
+    
 
     public int getId() {
         return id;

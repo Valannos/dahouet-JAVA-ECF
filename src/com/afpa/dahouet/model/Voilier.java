@@ -12,14 +12,23 @@ package com.afpa.dahouet.model;
 public class Voilier {
     
     private Proprietaire pro;
-    private ClasseVoillier cv;
+    private ClasseVoilier cv;
     private String nom;
+    private int id;
 
-    public Voilier(Proprietaire pro, ClasseVoillier classe, String nom) {
+    public Voilier(Proprietaire pro, ClasseVoilier classe, String nom) {
         this.pro = pro;
         this.cv = classe;
         this.nom = nom;
     }
+
+    public Voilier(Proprietaire pro, ClasseVoilier cv, String nom, int id) {
+        this.pro = pro;
+        this.cv = cv;
+        this.nom = nom;
+        this.id = id;
+    }
+    
 
     public Proprietaire getPro() {
         return pro;
@@ -29,11 +38,11 @@ public class Voilier {
         this.pro = pro;
     }
 
-    public ClasseVoillier getClasse() {
+    public ClasseVoilier getClasse() {
         return cv;
     }
 
-    public void setClasse(ClasseVoillier classe) {
+    public void setClasse(ClasseVoilier classe) {
         this.cv = classe;
     }
 

@@ -5,8 +5,10 @@
  */
 package com.afpa.dahouet.DAO;
 
-import com.afpa.dahouet.model.Voilier;
+import com.afpa.dahouet.model.*;
+
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ public class VoilierDAO {
     
     public static List<Voilier> findAll() {
         
-        List<Voilier> voil = new ArrayList<>();
+        List<Voilier> voiliers = new ArrayList<>();
         
         Connection connect = DBConnection.gettingConnected();
         Statement state = null;
@@ -30,14 +32,37 @@ public class VoilierDAO {
         try {
             
             state = connect.createStatement();
-            String sql = "SELECT ";
+            String sql = "SELECT v.numVoile, v.nomVoilier, v.id_Classe, v.id_Proprietaire FROM voilier v ";
+            ResultSet res = state.executeQuery(sql);
             
+            while  (res.next()) {
+                
+               int id = res.getInt("v.numVoile");
+               String nomVoilier = res.getString("v.nomVoilier");
+               int idPro = res.getInt("v.id_Proprietaire");
+               int idClVo = res.getInt("v.id_Classe");
+               Proprietaire pro = ProprietaireDAO.findById(idPro);
+               ClasseVoilier cv = ClasseVoilierDAO.findById(idClVo);
+               Voilier voilier = new Voilier(pro, cv, nomVoilier, id);
+               voiliers.add(voilier);
+               
+                
+            }
             
         } catch (SQLException ex) {
             Logger.getLogger(VoilierDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return voil;
+        
+        
+        return voiliers;
+    }
+    
+    public static Voilier finById(int id) {
+        
+        Voilier v = null;
+        
+        return v;
     }
     
 }
