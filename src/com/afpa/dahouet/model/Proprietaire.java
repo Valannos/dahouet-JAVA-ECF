@@ -13,6 +13,15 @@ public class Proprietaire extends Personne {
 
     private ClubNautique clubNautique;
     private int id;
+    private int id_Pro;
+
+    public int getId_Pro() {
+        return id_Pro;
+    }
+
+    public void setId_Pro(int id_Pro) {
+        this.id_Pro = id_Pro;
+    }
     
     public Proprietaire(String name, String firstname, String email, int anneeNaissance) {
         super(name, firstname, email, anneeNaissance);
@@ -32,11 +41,15 @@ public class Proprietaire extends Personne {
         this.clubNautique = clubNautique;
     }
 
-    public Proprietaire(ClubNautique clubNautique, int id, String name, String firstname, int anneeNaissance) {
+    public Proprietaire(ClubNautique clubNautique, int id, int id_Pro, String name, String firstname, int anneeNaissance) {
         super(name, firstname, anneeNaissance);
         this.clubNautique = clubNautique;
         this.id = id;
+        this.id_Pro = id_Pro;
     }
+
+
+    
 
     public int getId() {
         return id;

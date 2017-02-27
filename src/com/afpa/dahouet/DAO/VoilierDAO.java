@@ -73,7 +73,7 @@ public class VoilierDAO {
            System.out.println(v.getPro().getId() + " " + v.getPro().getName() + " " + v.getClasse().getId() + " " + v.getNom());
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, v.getNom());
-            ps.setInt(2, ProprietaireDAO.getProprietaireId(v.getPro()));
+            ps.setInt(2, v.getPro().getId_Pro());
             ps.setInt(3, v.getClasse().getId());
             ps.executeUpdate();
 

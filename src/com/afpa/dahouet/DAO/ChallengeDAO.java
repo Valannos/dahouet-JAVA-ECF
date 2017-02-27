@@ -7,6 +7,7 @@ package com.afpa.dahouet.DAO;
 
 import com.afpa.dahouet.model.Challenge;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -44,6 +45,37 @@ public class ChallengeDAO {
 
         return challenges;
 
+    }
+
+    public static Challenge findById(String id) {
+
+        String sql = "SELECT c.debChal, c.finChal FROM challenge c WHERE c.id = ?";
+        Challenge challenge = null;
+
+         try {
+
+            Connection connection = DBConnection.gettingConnected();
+             PreparedStatement ps = connection.prepareStatement(sql);
+             ps.setString(1, id);
+             ResultSet rs = ps.executeQuery();
+             
+             while (rs.next()) {
+              
+                 Date debChal = rs.getDate("c.debChal");
+                 Date finChal = rs.getDate("c.finChal");
+                 
+                 challenge = new Challenge(id, finChal, finChal);
+                 
+                 
+             }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ChallengeDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        return challenge;
     }
 
 }

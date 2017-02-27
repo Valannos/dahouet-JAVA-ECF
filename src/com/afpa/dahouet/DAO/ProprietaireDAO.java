@@ -35,7 +35,7 @@ public class ProprietaireDAO {
         try {
 
             state = connect.createStatement();
-            String sql = "SELECT pers.id, pers.nomPersonne, pers.prenomPersonne, pers.dateNaissance, pro.id_Club_Nautique FROM proprietaire pro INNER JOIN personne pers ON pers.id = pro.id_Personne";
+            String sql = "SELECT pers.id, pers.nomPersonne, pers.prenomPersonne, pers.dateNaissance, pro.id, pro.id_Club_Nautique FROM proprietaire pro INNER JOIN personne pers ON pers.id = pro.id_Personne";
             ResultSet res = state.executeQuery(sql);
 
             while (res.next()) {
@@ -44,8 +44,9 @@ public class ProprietaireDAO {
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(date);
                 int id = res.getInt("pers.id");
+                int id_Pro = res.getInt("pro.id");
                 ClubNautique clubNautique = ClubNautiqueDAO.findById(res.getInt("pro.id_Club_Nautique"));
-                Proprietaire pro = new Proprietaire(clubNautique, id, res.getString("pers.nomPersonne"), res.getString("pers.prenomPersonne"), cal.get(Calendar.YEAR));
+                Proprietaire pro = new Proprietaire(clubNautique, id, id_Pro, res.getString("pers.nomPersonne"), res.getString("pers.prenomPersonne"), cal.get(Calendar.YEAR));
                 proprietaires.add(pro);
 
             }
@@ -65,7 +66,7 @@ public class ProprietaireDAO {
 
         try {
 
-            String sql = "SELECT pers.nomPersonne, pers.prenomPersonne, pers.dateNaissance, pro.id_Club_Nautique FROM proprietaire pro INNER JOIN personne pers ON pers.id = pro.id_Personne WHERE pro.id = ?";
+            String sql = "SELECT pers.nomPersonne, pers.prenomPersonne, pers.dateNaissance, pro.id, pro.id_Club_Nautique FROM proprietaire pro INNER JOIN personne pers ON pers.id = pro.id_Personne WHERE pro.id = ?";
             ps = connect.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet res = ps.executeQuery();
@@ -75,8 +76,9 @@ public class ProprietaireDAO {
                 Date date = res.getDate("pers.dateNaissance");
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(date);
+                int id_Pro = res.getInt("pro.id");
                 ClubNautique clubNautique = ClubNautiqueDAO.findById(res.getInt("pro.id_Club_Nautique"));
-                pro = new Proprietaire(clubNautique, id, res.getString("pers.nomPersonne"), res.getString("pers.prenomPersonne"), cal.get(Calendar.YEAR));
+                pro = new Proprietaire(clubNautique, id, id_Pro, res.getString("pers.nomPersonne"), res.getString("pers.prenomPersonne"), cal.get(Calendar.YEAR));
 
             }
 
@@ -94,7 +96,7 @@ public class ProprietaireDAO {
         Connection connect = DBConnection.gettingConnected();
 
         try {
-            String sql = "SELECT pers.id, pers.nomPersonne, pers.prenomPersonne, pers.dateNaissance FROM proprietaire pro INNER JOIN personne pers ON pers.id = pro.id_Personne WHERE pro.id_Club_Nautique = ?";
+            String sql = "SELECT pers.id, pers.nomPersonne, pers.prenomPersonne, pro.id, pers.dateNaissance FROM proprietaire pro INNER JOIN personne pers ON pers.id = pro.id_Personne WHERE pro.id_Club_Nautique = ?";
             PreparedStatement state = connect.prepareStatement(sql);
             state.setInt(1, clubNautique.getId());
             ResultSet res = state.executeQuery();
@@ -105,7 +107,8 @@ public class ProprietaireDAO {
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(date);
                 int id = res.getInt("pers.id");
-                Proprietaire pro = new Proprietaire(clubNautique, id, res.getString("pers.nomPersonne"), res.getString("pers.prenomPersonne"), cal.get(Calendar.YEAR));
+                int id_Pro = res.getInt("pro.id");
+                Proprietaire pro = new Proprietaire(clubNautique, id, id_Pro, res.getString("pers.nomPersonne"), res.getString("pers.prenomPersonne"), cal.get(Calendar.YEAR));
                 proprietaires.add(pro);
 
             }
@@ -117,35 +120,35 @@ public class ProprietaireDAO {
         return proprietaires;
 
     }
-    
+
     /**
-     * this method fetch in database the id value of a <b>Proprietaire</b> instance
-     * 
+     * this method fetch in database the id value of a <b>Proprietaire</b>
+     * instance
+     *
      * @param p : An instance of Proprietaire
      * @return identifier of related Personne
      */
     public static int getProprietaireId(Proprietaire p) {
-        
+
         Connection connect = DBConnection.gettingConnected();
         int id = 0;
-        
+
         try {
             String sql = "SELECT id FROM proprietaire WHERE id_Personne = ?";
             PreparedStatement ps = connect.prepareStatement(sql);
             ps.setInt(1, p.getId());
             ResultSet resultSet = ps.executeQuery();
-            
+
             while (resultSet.next()) {
-                
+
                 id = resultSet.getInt("id");
-                
+
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(ProprietaireDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
         return id;
     }
 

@@ -13,6 +13,7 @@ public class Concurrent extends Personne {
     
  private int numLicence;
  private int anneLicence;
+ private int id;
 
     public Concurrent(int numLicence, int anneLicence, String name, String firstname, int anneeNaissance) {
         super(name, firstname, anneeNaissance);
@@ -36,36 +37,21 @@ public class Concurrent extends Personne {
         this.anneLicence = anneLicence;
     }
 
-    public String getName() {
-        return name;
+ 
+
+    public Concurrent(int numLicence, int anneLicence, int id, String name, String firstname, int anneeNaissance) {
+        super(name, firstname, anneeNaissance);
+        this.numLicence = numLicence;
+        this.anneLicence = anneLicence;
+        this.id = id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public int getId() {
+        return id;
     }
 
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getAnneeNaissance() {
-        return anneeNaissance;
-    }
-
-    public void setAnneeNaissance(int anneeNaissance) {
-        this.anneeNaissance = anneeNaissance;
+    public void setId(int id) {
+        this.id = id;
     }
     
     
