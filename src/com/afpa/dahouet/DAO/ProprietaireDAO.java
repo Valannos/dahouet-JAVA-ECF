@@ -5,6 +5,7 @@
  */
 package com.afpa.dahouet.DAO;
 
+import com.afpa.dahouet.model.ClubNautique;
 import com.afpa.dahouet.model.Proprietaire;
 import java.sql.Connection;
 import java.sql.Date;
@@ -34,7 +35,7 @@ public class ProprietaireDAO {
         try {
             
             state = connect.createStatement();
-            String sql = "SELECT pers.nomPersonne, pers.prenomPersonne, pers.dateNaissance FROM proprietaire pro INNER JOIN personne pers ON pers.id = pro.id_Personne";
+            String sql = "SELECT pers.nomPersonne, pers.prenomPersonne, pers.dateNaissance, pro.id_Club_Nautique FROM proprietaire pro INNER JOIN personne pers ON pers.id = pro.id_Personne";
             ResultSet res = state.executeQuery(sql);
             
             while (res.next()) {
@@ -42,7 +43,8 @@ public class ProprietaireDAO {
                 Date date = res.getDate("pers.dateNaissance");
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(date);
-                Proprietaire pro = new Proprietaire(res.getString("pers.prenomPersonne"), res.getString("pers.nomPersonne"), cal.get(Calendar.YEAR));
+                ClubNautique clubNautique = ClubNautiqueDAO.findById(res.getInt("pro.id_Club_Nautique"));
+                Proprietaire pro = new Proprietaire(clubNautique, res.getString("pers.prenomPersonne"), res.getString("pers.nomPersonne"), cal.get(Calendar.YEAR));
                 proprietaires.add(pro);
                 
             }
@@ -63,7 +65,7 @@ public class ProprietaireDAO {
         try {
             
            
-            String sql = "SELECT pers.nomPersonne, pers.prenomPersonne, pers.dateNaissance FROM proprietaire pro INNER JOIN personne pers ON pers.id = pro.id_Personne WHERE pro.id = ?";
+            String sql = "SELECT pers.nomPersonne, pers.prenomPersonne, pers.dateNaissance, pro.id_Club_Nautique FROM proprietaire pro INNER JOIN personne pers ON pers.id = pro.id_Personne WHERE pro.id = ?";
              ps = connect.prepareStatement(sql);
              ps.setInt(1, id);            
              ResultSet res = ps.executeQuery();
@@ -73,7 +75,8 @@ public class ProprietaireDAO {
                 Date date = res.getDate("pers.dateNaissance");
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(date);
-               pro = new Proprietaire(res.getString("pers.prenomPersonne"), res.getString("pers.nomPersonne"), cal.get(Calendar.YEAR));
+                 ClubNautique clubNautique = ClubNautiqueDAO.findById(res.getInt("pro.id_Club_Nautique"));
+               pro = new Proprietaire(clubNautique, res.getString("pers.prenomPersonne"), res.getString("pers.nomPersonne"), cal.get(Calendar.YEAR));
            
                 
             }

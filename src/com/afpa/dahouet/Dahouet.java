@@ -5,13 +5,16 @@
  */
 package com.afpa.dahouet;
 
-import com.afpa.dahouet.DAO.ProprietaireDAO;
-import com.afpa.dahouet.DAO.VoilierDAO;
 import com.afpa.dahouet.model.*;
 import com.afpa.dahouet.model.Licencie;
+import com.afpa.dahouet.ui.VoilierForm;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -26,6 +29,22 @@ public class Dahouet {
      */
     public static void main(String[] args) {
 
+        try {
+
+            UIManager.setLookAndFeel(
+                    UIManager.getCrossPlatformLookAndFeelClassName()
+            );
+
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(Dahouet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        VoilierForm win = new VoilierForm();
+        win.setVisible(true);
+
+    
+        
+        
+        
         List<Personne> personnes = new ArrayList<>();
 
         Licencie lic1 = new Licencie(100, 100, 2016, "Nagepas", "Jean-Michel", "jmng@plouf.fr", 1980);
@@ -62,7 +81,7 @@ public class Dahouet {
 //         List<Proprietaire> proprietaires = ProprietaireDAO.findAll();
 //        for (Proprietaire proprietaire : proprietaires) {
 //            
-//            System.out.println(proprietaire.toString());
+//            System.out.println(proprietaire.toString() +proprietaire.getClubNautique().getNomClub());
 //            
 //        }
 //        List<Voilier> vs = VoilierDAO.findAll();
