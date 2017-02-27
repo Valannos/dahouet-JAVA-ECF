@@ -32,7 +32,7 @@ public class Dahouet {
         try {
 
             UIManager.setLookAndFeel(
-                    UIManager.getCrossPlatformLookAndFeelClassName()
+                    UIManager.getSystemLookAndFeelClassName()
             );
 
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {

@@ -24,70 +24,129 @@ import java.util.logging.Logger;
  * @author Valannos
  */
 public class ProprietaireDAO {
-    
-      public static List<Proprietaire> findAll() {
-        
+
+    public static List<Proprietaire> findAll() {
+
         List<Proprietaire> proprietaires = new ArrayList<>();
-        
+
         Connection connect = DBConnection.gettingConnected();
         Statement state = null;
-        
+
         try {
-            
+
             state = connect.createStatement();
-            String sql = "SELECT pers.nomPersonne, pers.prenomPersonne, pers.dateNaissance, pro.id_Club_Nautique FROM proprietaire pro INNER JOIN personne pers ON pers.id = pro.id_Personne";
+            String sql = "SELECT pers.id, pers.nomPersonne, pers.prenomPersonne, pers.dateNaissance, pro.id_Club_Nautique FROM proprietaire pro INNER JOIN personne pers ON pers.id = pro.id_Personne";
             ResultSet res = state.executeQuery(sql);
-            
+
             while (res.next()) {
-                
+
+                Date date = res.getDate("pers.dateNaissance");
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(date);
+                int id = res.getInt("pers.id");
+                ClubNautique clubNautique = ClubNautiqueDAO.findById(res.getInt("pro.id_Club_Nautique"));
+                Proprietaire pro = new Proprietaire(clubNautique, id, res.getString("pers.nomPersonne"), res.getString("pers.prenomPersonne"), cal.get(Calendar.YEAR));
+                proprietaires.add(pro);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(VoilierDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return proprietaires;
+    }
+
+    public static Proprietaire findById(int id) {
+
+        Proprietaire pro = null;
+        Connection connect = DBConnection.gettingConnected();
+        PreparedStatement ps = null;
+
+        try {
+
+            String sql = "SELECT pers.nomPersonne, pers.prenomPersonne, pers.dateNaissance, pro.id_Club_Nautique FROM proprietaire pro INNER JOIN personne pers ON pers.id = pro.id_Personne WHERE pro.id = ?";
+            ps = connect.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet res = ps.executeQuery();
+
+            while (res.next()) {
+
                 Date date = res.getDate("pers.dateNaissance");
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(date);
                 ClubNautique clubNautique = ClubNautiqueDAO.findById(res.getInt("pro.id_Club_Nautique"));
-                Proprietaire pro = new Proprietaire(clubNautique, res.getString("pers.prenomPersonne"), res.getString("pers.nomPersonne"), cal.get(Calendar.YEAR));
-                proprietaires.add(pro);
-                
+                pro = new Proprietaire(clubNautique, id, res.getString("pers.nomPersonne"), res.getString("pers.prenomPersonne"), cal.get(Calendar.YEAR));
+
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(VoilierDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        return proprietaires;
+
+        return pro;
     }
-      
-      public static Proprietaire findById(int id) {
-          
-          Proprietaire pro = null;
-           Connection connect = DBConnection.gettingConnected();
-          PreparedStatement ps = null;
-        
+
+    public static List<Proprietaire> findByClubNautique(ClubNautique clubNautique) {
+
+        List<Proprietaire> proprietaires = new ArrayList<>();
+
+        Connection connect = DBConnection.gettingConnected();
+
         try {
-            
-           
-            String sql = "SELECT pers.nomPersonne, pers.prenomPersonne, pers.dateNaissance, pro.id_Club_Nautique FROM proprietaire pro INNER JOIN personne pers ON pers.id = pro.id_Personne WHERE pro.id = ?";
-             ps = connect.prepareStatement(sql);
-             ps.setInt(1, id);            
-             ResultSet res = ps.executeQuery();
-            
+            String sql = "SELECT pers.id, pers.nomPersonne, pers.prenomPersonne, pers.dateNaissance FROM proprietaire pro INNER JOIN personne pers ON pers.id = pro.id_Personne WHERE pro.id_Club_Nautique = ?";
+            PreparedStatement state = connect.prepareStatement(sql);
+            state.setInt(1, clubNautique.getId());
+            ResultSet res = state.executeQuery();
+
             while (res.next()) {
-                
+
                 Date date = res.getDate("pers.dateNaissance");
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(date);
-                 ClubNautique clubNautique = ClubNautiqueDAO.findById(res.getInt("pro.id_Club_Nautique"));
-               pro = new Proprietaire(clubNautique, res.getString("pers.prenomPersonne"), res.getString("pers.nomPersonne"), cal.get(Calendar.YEAR));
-           
+                int id = res.getInt("pers.id");
+                Proprietaire pro = new Proprietaire(clubNautique, id, res.getString("pers.nomPersonne"), res.getString("pers.prenomPersonne"), cal.get(Calendar.YEAR));
+                proprietaires.add(pro);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(VoilierDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return proprietaires;
+
+    }
+    
+    /**
+     * this method fetch in database the id value of a <b>Proprietaire</b> instance
+     * 
+     * @param p : An instance of Proprietaire
+     * @return identifier of related Personne
+     */
+    public static int getProprietaireId(Proprietaire p) {
+        
+        Connection connect = DBConnection.gettingConnected();
+        int id = 0;
+        
+        try {
+            String sql = "SELECT id FROM proprietaire WHERE id_Personne = ?";
+            PreparedStatement ps = connect.prepareStatement(sql);
+            ps.setInt(1, p.getId());
+            ResultSet resultSet = ps.executeQuery();
+            
+            while (resultSet.next()) {
+                
+                id = resultSet.getInt("id");
                 
             }
             
         } catch (SQLException ex) {
-            Logger.getLogger(VoilierDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-          
-          
-          return pro;
-      }
-    
-    
+            Logger.getLogger(ProprietaireDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        return id;
+    }
+
 }

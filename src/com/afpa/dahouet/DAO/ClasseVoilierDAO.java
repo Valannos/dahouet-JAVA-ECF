@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,13 +23,14 @@ import java.util.logging.Logger;
 public class ClasseVoilierDAO {
 
     /**
-     * Fetch ClasseVoilier from database and build a list of ClasseVoilier objcts
+     * Fetch ClasseVoilier from database and build a list of ClasseVoilier
+     * objcts
+     *
      * @return a list of ClassVoilier
      */
-    
     public static List<ClasseVoilier> findAll() {
 
-        List<ClasseVoilier> cvs = null;
+        List<ClasseVoilier> cvs = new ArrayList<>();
         Statement state = null;
         ResultSet rs = null;
         Connection connect = DBConnection.gettingConnected();
@@ -41,11 +43,18 @@ public class ClasseVoilierDAO {
         String sql = "SELECT * FROM classe";
         try {
             rs = state.executeQuery(sql);
-            String nomClasse = rs.getString("nomClasse");
-            double coefClasse = rs.getDouble("coefClasse");
-            char typeSerie = rs.getString("typeSerie").charAt(0);
-            ClasseVoilier cv = new ClasseVoilier(nomClasse, typeSerie, coefClasse);
-            cvs.add(cv);
+
+            while (rs.next()) {
+
+                int id = rs.getInt("id");
+                String nomClasse = rs.getString("nomClasse");
+                double coefClasse = rs.getDouble("coefClasse");
+                char typeSerie = rs.getString("typeSerie").charAt(0);
+                ClasseVoilier cv = new ClasseVoilier(id, nomClasse, typeSerie, coefClasse);
+                cvs.add(cv);
+
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(ClasseVoilierDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -69,7 +78,7 @@ public class ClasseVoilierDAO {
                 String nomClasse = rs.getString("nomClasse");
                 double coefClasse = rs.getDouble("coefClasse");
                 char typeSerie = rs.getString("typeSerie").charAt(0);
-                cv = new ClasseVoilier(nomClasse, typeSerie, coefClasse);
+                cv = new ClasseVoilier(id, nomClasse, typeSerie, coefClasse);
 
             }
 
@@ -78,6 +87,42 @@ public class ClasseVoilierDAO {
         }
 
         return cv;
+    }
+
+    public static List<ClasseVoilier> findBySerie(char s) {
+
+        List<ClasseVoilier> classeVoiliers = new ArrayList<>();
+        Statement state = null;
+        String sql = null;
+        if (s == 'H') {
+
+            sql = "SELECT * FROM classe c WHERE c.typeSerie = 'H'";
+
+        } else if (s == 'Q') {
+            sql = "SELECT * FROM classe c WHERE c.typeSerie = 'Q'";
+        }
+
+        Connection connect = DBConnection.gettingConnected();
+        try {
+
+            state = connect.createStatement();
+
+            ResultSet rs = state.executeQuery(sql);
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String nomClasse = rs.getString("nomClasse");
+                double coefClasse = rs.getDouble("coefClasse");
+                char typeSerie = rs.getString("typeSerie").charAt(0);
+                ClasseVoilier cv = new ClasseVoilier(id, nomClasse, typeSerie, coefClasse);
+                classeVoiliers.add(cv);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ClasseVoilierDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return classeVoiliers;
     }
 
 }

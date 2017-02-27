@@ -8,8 +8,6 @@ package com.afpa.dahouet.ui;
 import com.afpa.dahouet.DAO.ClubNautiqueDAO;
 import com.afpa.dahouet.model.ClubNautique;
 import java.util.List;
-import javax.swing.AbstractListModel;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 
 /**
@@ -32,14 +30,23 @@ public class JComboBoxModel_ClubNautique extends DefaultComboBoxModel{
     }
 
     @Override
-    public String getElementAt(int index) {
-        return this.clubNautiques.get(index).getNomClub(); //To change body of generated methods, choose Tools | Templates.
+    public ClubNautique getElementAt(int index) {
+        return this.clubNautiques.get(index); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public int getSize() {
         return this.clubNautiques.size(); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public ClubNautique getSelectedItem() {
+        
+        
+        return (ClubNautique) super.getSelectedItem(); 
+    }
+    
+    
     
     
     

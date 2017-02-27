@@ -5,6 +5,13 @@
  */
 package com.afpa.dahouet.ui;
 
+import com.afpa.dahouet.DAO.VoilierDAO;
+import com.afpa.dahouet.model.ClasseVoilier;
+import com.afpa.dahouet.model.ClubNautique;
+import com.afpa.dahouet.model.Proprietaire;
+import com.afpa.dahouet.model.Voilier;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Afpa
@@ -32,11 +39,11 @@ public class VoilierForm extends javax.swing.JFrame {
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu6 = new javax.swing.JMenu();
         jMenu7 = new javax.swing.JMenu();
-        jPanel1 = new javax.swing.JPanel();
+        jPanel_List = new javax.swing.JPanel();
         jLabel_ListVoilier = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jPanel2 = new javax.swing.JPanel();
+        jPanel_Form = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jComboBox_Proprietaire = new javax.swing.JComboBox<>();
@@ -85,21 +92,21 @@ public class VoilierForm extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel_ListLayout = new javax.swing.GroupLayout(jPanel_List);
+        jPanel_List.setLayout(jPanel_ListLayout);
+        jPanel_ListLayout.setHorizontalGroup(
+            jPanel_ListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_ListLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel_ListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel_ListVoilier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 695, Short.MAX_VALUE)
+                    .addGroup(jPanel_ListLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
                         .addContainerGap())))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jPanel_ListLayout.setVerticalGroup(
+            jPanel_ListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_ListLayout.createSequentialGroup()
                 .addComponent(jLabel_ListVoilier, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -108,19 +115,20 @@ public class VoilierForm extends javax.swing.JFrame {
 
         jLabel1.setText("Ajouter un voilier");
 
-        jLabel2.setText("Propriétaire");
+        jLabel2.setText("Propriétaire :");
 
         jComboBox_Proprietaire.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choisisez un club..." }));
         jComboBox_Proprietaire.setEnabled(false);
+        jComboBox_Proprietaire.setRenderer(new GlobalComboBoxRenderer());
         jComboBox_Proprietaire.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox_ProprietaireActionPerformed(evt);
             }
         });
 
-        jLabel3.setText("Série");
+        jLabel3.setText("Série :");
 
-        jCheckBox_H.setText("Habitable");
+        jCheckBox_H.setText("Habitables");
         jCheckBox_H.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jCheckBox_HItemStateChanged(evt);
@@ -149,11 +157,17 @@ public class VoilierForm extends javax.swing.JFrame {
             }
         });
 
-        jLabel_ClubNautique.setText("Club Nautique");
+        jLabel_ClubNautique.setText("Club Nautique :");
 
         jComboBox_Club.setModel(new JComboBoxModel_ClubNautique());
+        jComboBox_Club.setRenderer(new com.afpa.dahouet.ui.GlobalComboBoxRenderer());
+        jComboBox_Club.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox_ClubActionPerformed(evt);
+            }
+        });
 
-        jLabel4.setText("Nom du voilier");
+        jLabel4.setText("Nom du voilier :");
 
         jButton2.setText("Réinitialiser");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -169,93 +183,104 @@ public class VoilierForm extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setText("Classe");
+        jLabel5.setText("Classe : ");
 
         jComboBox_Classe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cochez une série..." }));
         jComboBox_Classe.setEnabled(false);
+        jComboBox_Classe.setRenderer(new GlobalComboBoxRenderer());
         jComboBox_Classe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox_ClasseActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel_FormLayout = new javax.swing.GroupLayout(jPanel_Form);
+        jPanel_Form.setLayout(jPanel_FormLayout);
+        jPanel_FormLayout.setHorizontalGroup(
+            jPanel_FormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_FormLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel_FormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(jPanel_FormLayout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addGap(18, 18, 18)
                         .addComponent(jButton2)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel_FormLayout.createSequentialGroup()
+                        .addGroup(jPanel_FormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel_FormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel_FormLayout.createSequentialGroup()
+                                    .addGroup(jPanel_FormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGap(28, 28, 28)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addGroup(jPanel_FormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(jPanel_FormLayout.createSequentialGroup()
                                             .addComponent(jCheckBox_H, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addComponent(jCheckBox_Q, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addComponent(jComboBox_Proprietaire, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel_FormLayout.createSequentialGroup()
                                     .addComponent(jLabel_ClubNautique)
                                     .addGap(18, 18, 18)
                                     .addComponent(jComboBox_Club, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel_FormLayout.createSequentialGroup()
+                                .addGroup(jPanel_FormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel5))
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel_FormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jTextField_NameVoilier, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
                                     .addComponent(jComboBox_Classe, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(0, 88, Short.MAX_VALUE))))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        jPanel_FormLayout.setVerticalGroup(
+            jPanel_FormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_FormLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel_FormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_ClubNautique)
                     .addComponent(jComboBox_Club, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel_FormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox_Proprietaire, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel_FormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCheckBox_H)
                     .addComponent(jCheckBox_Q))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel_FormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jComboBox_Classe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel_FormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jTextField_NameVoilier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel_FormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(128, Short.MAX_VALUE))
         );
 
         JFileMenu.setText("Fichier");
+        JFileMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JFileMenuActionPerformed(evt);
+            }
+        });
 
         jMenuItem_Quit.setText("Quitter");
+        jMenuItem_Quit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_QuitActionPerformed(evt);
+            }
+        });
         JFileMenu.add(jMenuItem_Quit);
 
         jMenuBar1.add(JFileMenu);
@@ -277,9 +302,9 @@ public class VoilierForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel_List, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel_Form, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -288,8 +313,8 @@ public class VoilierForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel_List, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel_Form, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -297,7 +322,8 @@ public class VoilierForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBox_ProprietaireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_ProprietaireActionPerformed
-    // TODO add your handling code here:
+
+
     }//GEN-LAST:event_jComboBox_ProprietaireActionPerformed
 
     private void jCheckBox_HActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox_HActionPerformed
@@ -309,11 +335,55 @@ public class VoilierForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jCheckBox_QActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        jTextField_NameVoilier.setText("");
+        jComboBox_Classe.setSelectedIndex(-1);
+        if (jComboBox_Classe.isEnabled()) {
+            jComboBox_Classe.setEnabled(false);
+        }
+
+        jComboBox_Club.setSelectedIndex(-1);
+        jComboBox_Proprietaire.setSelectedIndex(-1);
+        if (jComboBox_Proprietaire.isEnabled()) {
+            jComboBox_Proprietaire.setEnabled(false);
+        }
+
+        jCheckBox_H.setSelected(false);
+        jCheckBox_Q.setSelected(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        Integer indexClub = jComboBox_Club.getSelectedIndex();
+        Integer indexProprio = jComboBox_Proprietaire.getSelectedIndex();
+        Integer indexClasse = jComboBox_Club.getSelectedIndex();
+        String nom = jTextField_NameVoilier.getText();
+
+        if (indexProprio == null || indexClasse == null || indexClub == null || nom.isEmpty()) {
+
+            JOptionPane.showMessageDialog(jPanel_Form, "Certains Champs sont vides", "Erreur", JOptionPane.ERROR_MESSAGE);
+
+        } else {
+
+            int confirm = JOptionPane.showConfirmDialog(jPanel_Form, "Voulez vous vraiment ajouter le voilier \"" + nom + "\" ?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (confirm == JOptionPane.YES_OPTION) {
+                Proprietaire proprietaire = (Proprietaire) jComboBox_Proprietaire.getSelectedItem();
+                ClasseVoilier classeVoilier = (ClasseVoilier) jComboBox_Classe.getSelectedItem();
+                Voilier voilier = new Voilier(proprietaire, classeVoilier, nom);
+
+                int result = VoilierDAO.insertVoilier(voilier);
+                if (result == 0) {
+
+                    JOptionPane.showMessageDialog(jPanel_Form, "Une erreur s'est produite.", "Erreur", JOptionPane.ERROR_MESSAGE);
+
+                } else {
+
+                    JOptionPane.showMessageDialog(jPanel_Form, "Ajout réussi !", "Succès", JOptionPane.INFORMATION_MESSAGE);
+
+                }
+
+            }
+        }
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBox_ClasseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_ClasseActionPerformed
@@ -327,20 +397,50 @@ public class VoilierForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jCheckBox_HStateChanged
 
     private void jCheckBox_HItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox_HItemStateChanged
-        if (jCheckBox_Q.isEnabled() ) {
+        if (jCheckBox_H.isSelected()) {
             jCheckBox_Q.setEnabled(false);
+            jComboBox_Classe.setModel(new JComboBoxModel_Classe('H'));
+            jComboBox_Classe.setEnabled(true);
         } else {
-              jCheckBox_Q.setEnabled(true);
+            jCheckBox_Q.setEnabled(true);
+            jComboBox_Classe.setEnabled(false);
+            jComboBox_Classe.setSelectedIndex(-1);
+
         }
+
     }//GEN-LAST:event_jCheckBox_HItemStateChanged
 
     private void jCheckBox_QItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox_QItemStateChanged
-        if (jCheckBox_H.isEnabled()) {
+        if (jCheckBox_Q.isSelected()) {
             jCheckBox_H.setEnabled(false);
+            jComboBox_Classe.setModel(new JComboBoxModel_Classe('Q'));
+            jComboBox_Classe.setEnabled(true);
         } else {
-              jCheckBox_H.setEnabled(true);
+            jCheckBox_H.setEnabled(true);
+            jComboBox_Classe.setSelectedIndex(-1);
+            jComboBox_Classe.setEnabled(false);
+
         }
     }//GEN-LAST:event_jCheckBox_QItemStateChanged
+
+    private void jComboBox_ClubActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_ClubActionPerformed
+        if (jComboBox_Club.getSelectedIndex() != -1) {
+            ClubNautique clubNautique = (ClubNautique) jComboBox_Club.getModel().getSelectedItem();
+
+            jComboBox_Proprietaire.setModel(new JComboBoxModel_Proprietaire(clubNautique));
+            jComboBox_Proprietaire.setEnabled(true);
+        }
+
+
+    }//GEN-LAST:event_jComboBox_ClubActionPerformed
+
+    private void JFileMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JFileMenuActionPerformed
+
+    }//GEN-LAST:event_JFileMenuActionPerformed
+
+    private void jMenuItem_QuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_QuitActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem_QuitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -362,7 +462,7 @@ public class VoilierForm extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(VoilierForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         //</editor-fold>
 
         /* Create and display the form */
@@ -399,8 +499,8 @@ public class VoilierForm extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem_Quit;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel_Form;
+    private javax.swing.JPanel jPanel_List;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField_NameVoilier;

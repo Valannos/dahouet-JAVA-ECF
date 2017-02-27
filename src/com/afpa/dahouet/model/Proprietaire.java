@@ -12,6 +12,7 @@ package com.afpa.dahouet.model;
 public class Proprietaire extends Personne {
 
     private ClubNautique clubNautique;
+    private int id;
     
     public Proprietaire(String name, String firstname, String email, int anneeNaissance) {
         super(name, firstname, email, anneeNaissance);
@@ -30,6 +31,24 @@ public class Proprietaire extends Personne {
         super(name, firstname, anneeNaissance);
         this.clubNautique = clubNautique;
     }
+
+    public Proprietaire(ClubNautique clubNautique, int id, String name, String firstname, int anneeNaissance) {
+        super(name, firstname, anneeNaissance);
+        this.clubNautique = clubNautique;
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    
+    
+    
     
     
 
