@@ -83,5 +83,41 @@ public class ChallengeDAO {
         
         return challenge;
     }
+    
+    public static Challenge getCurrentChallenge() {
+        
+        Challenge challenge = null;
+                
+                 String sql = "SELECT c.id, c.debChal, c.finChal FROM challenge c WHERE c.debChal < CURRENT_DATE AND c.finChal > CURRENT_DATE ";
+      
+
+         try {
+
+            Connection connection = DBConnection.gettingConnected();
+            Statement statement = connection.createStatement();
+             ResultSet rs = statement.executeQuery(sql);
+             while (rs.next()) {
+              
+                 Date debChal = rs.getDate("c.debChal");
+                 Date finChal = rs.getDate("c.finChal");
+                 String id = rs.getString("c.id");
+                 
+                 challenge = new Challenge(id, finChal, finChal);
+                 
+                 
+             }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ChallengeDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        return challenge;
+        
+        
+        
+        
+    }
 
 }

@@ -82,4 +82,31 @@ public class RegateDAO {
         return regate;
     }
 
+    public static List<Regate> findByChallenge(Challenge challenge) {
+
+        List<Regate> regates = new ArrayList<>();
+
+        Connection connection = DBConnection.gettingConnected();
+        String sql = "SELECT r.dateReg, r.distance, r.id FROM regate r WHERE r.id_Challenge = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, challenge.getId());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+
+                Date dateReg = rs.getDate("r.dateReg");
+                double distance = rs.getDouble("r.distance");
+                String id = rs.getString("r.id");
+                Regate regate = new Regate(id, dateReg, distance, challenge);
+                regates.add(regate);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(RegateDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return regates;
+
+    }
+
 }

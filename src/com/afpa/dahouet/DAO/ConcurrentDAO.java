@@ -59,7 +59,7 @@ public class ConcurrentDAO {
                 int numLicence = rs.getInt("c.numLicence");
                 int anneeLic = rs.getInt("c.anneeLic");
                 String name = rs.getString("p.nomPersonne");
-                String firstname = rs.getString("p.firstname");
+                String firstname = rs.getString("p.prenomPersonne");
                 Date dateNaissance = rs.getDate("p.dateNaissance");
                 Calendar c = Calendar.getInstance();
                 c.setTime(dateNaissance);

@@ -66,7 +66,7 @@ public class CodeResultatDAO {
 
         try {
 
-            String sql = "SELECT * FROM codeResultat WHERE id = ?";
+            String sql = "SELECT * FROM codes_resultats WHERE id = ?";
             state = connect.prepareStatement(sql);
             state.setInt(1, id);
             rs = state.executeQuery();

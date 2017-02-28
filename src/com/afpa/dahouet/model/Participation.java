@@ -15,6 +15,7 @@ public class Participation {
     
     private int id;
     private Time tpsReg;
+    private Time tpsReel;
     private int scrReg;
     private Regate regate;
     private Voilier voilier;
@@ -29,7 +30,7 @@ public class Participation {
         
     }
 
-    public Participation(int id, Time tpsReg, int scrReg, Regate regate, Voilier voilier, Concurrent skipper, CodeResultat codeResultat) {
+    public Participation(int id, Time tpsReg, Time tpsReel, int scrReg, Regate regate, Voilier voilier, Concurrent skipper, CodeResultat codeResultat) {
         this.id = id;
         this.tpsReg = tpsReg;
         this.scrReg = scrReg;
@@ -37,6 +38,7 @@ public class Participation {
         this.voilier = voilier;
         this.skipper = skipper;
         this.codeResultat = codeResultat;
+        this.tpsReel = tpsReel;
     }
     
     

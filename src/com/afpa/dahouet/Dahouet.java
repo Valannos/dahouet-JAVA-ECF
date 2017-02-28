@@ -6,6 +6,8 @@
 package com.afpa.dahouet;
 
 import com.afpa.dahouet.DAO.ChallengeDAO;
+import com.afpa.dahouet.DAO.ParticipationDAO;
+import com.afpa.dahouet.DAO.RegateDAO;
 import com.afpa.dahouet.model.*;
 import com.afpa.dahouet.model.Licencie;
 import com.afpa.dahouet.ui.VoilierForm;
@@ -17,6 +19,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import spark.Request;
+import spark.Response;
 import static spark.Spark.*;
 
 /**
@@ -24,8 +28,6 @@ import static spark.Spark.*;
  * @author Afpa
  */
 public class Dahouet {
-
- 
 
     /**
      * @param args the command line arguments
@@ -44,10 +46,6 @@ public class Dahouet {
         VoilierForm win = new VoilierForm();
         win.setVisible(true);
 
-    
-        
-        
-        
         List<Personne> personnes = new ArrayList<>();
 
         Licencie lic1 = new Licencie(100, 100, 2016, "Nagepas", "Jean-Michel", "jmng@plouf.fr", 1980);
@@ -77,19 +75,50 @@ public class Dahouet {
 
             System.err.println("ERREUR : " + e.getClass() + " : " + e.getMessage());
         }
-        
-        
-        get("/hello", (req, res)-> {
-        
-        List<Challenge> cs =  ChallengeDAO.findAll();
+
+        get("/hello", (Request req, Response res) -> {
+
+            List<Challenge> cs = ChallengeDAO.findAll();
             Gson gson = new Gson();
-          String json =  gson.toJson(cs);
-        return json;
+            String json = gson.toJson(cs);
+            return json;
         });
-        
-        
-        
-        
+        get("/currentChallenge", (Request req, Response res) -> {
+
+            Challenge challenge = ChallengeDAO.getCurrentChallenge();
+            Gson gson = new Gson();
+            String json = gson.toJson(challenge);
+
+            return json;
+
+        }
+        );
+
+        get("/currentRegates", (Request req, Response res) -> {
+
+            Challenge challenge = ChallengeDAO.getCurrentChallenge();
+            List<Regate> regates = RegateDAO.findByChallenge(challenge);
+            Gson gson = new Gson();
+
+            return gson.toJson(regates);
+
+        });
+
+        get("/participation", (Request req, Response res) -> {
+            Gson gson = new Gson();
+            Challenge challenge = ChallengeDAO.getCurrentChallenge();
+            List<Regate> regates = RegateDAO.findByChallenge(challenge);
+            List<Participation> participations = new ArrayList<>();
+            for (Regate regate : regates) {
+
+                participations.addAll(ParticipationDAO.findAllWithResultsFromRegate(regate));
+
+            }
+            gson.toJson(participations);
+            return gson.toJson(participations);
+
+        });
+
 //         List<Proprietaire> proprietaires = ProprietaireDAO.findAll();
 //        for (Proprietaire proprietaire : proprietaires) {
 //            
@@ -100,13 +129,6 @@ public class Dahouet {
 //        for (Voilier v : vs) {
 //            System.out.println(v.getNom());
 //        }
-   
-
     }
-    
-   
-    
-  
-    
 
 }
