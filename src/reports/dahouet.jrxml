@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-02-28T15:15:15 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dahouet" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a1f690a3-5977-4467-85f8-6b0bcd5b7210">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="JDBC_MySQL"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT part.id as 'partId', part.numVoile_Voilier, p.nomPersonne, p.prenomPersonne, part.id_Regate, reg.dateReg, chal.id as 'chalId' FROM participation part
+INNER JOIN concurrent conc 
+ON part.numLicence_Concurrent = conc.numLicence
+INNER JOIN personne p 
+ON p.id = conc.id_Personne
+INNER JOIN regate reg 
+on reg.id = part.id_Regate
+INNER JOIN challenge chal 
+on reg.id_Challenge = chal.id
+WHERE reg.id = "H201703"]]>
+	</queryString>
+	<field name="partId" class="java.lang.Integer"/>
+	<field name="numVoile_Voilier" class="java.lang.Integer"/>
+	<field name="nomPersonne" class="java.lang.String"/>
+	<field name="prenomPersonne" class="java.lang.String"/>
+	<field name="id_Regate" class="java.lang.String"/>
+	<field name="dateReg" class="java.sql.Date"/>
+	<field name="chalId" class="java.lang.String"/>
+	<group name="Group1">
+		<groupExpression><![CDATA[$F{id_Regate}]]></groupExpression>
+		<groupHeader>
+			<band height="40">
+				<textField>
+					<reportElement style="SubTitle" x="47" y="13" width="506" height="24" forecolor="#000000" uuid="58dcc1c6-1d3b-42b1-ab28-0ec976da8319"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Régate N°" + $F{id_Regate}.substring( 5 )]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement mode="Opaque" x="0" y="13" width="36" height="24" forecolor="#CCCCCC" backcolor="#CCCCCC" uuid="975a4f60-ff14-457c-9bb7-6fc526761c2a"/>
+				</rectangle>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="6"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="91" splitType="Stretch">
+			<textField>
+				<reportElement x="27" y="13" width="247" height="30" uuid="de903301-843e-470a-8fa8-f66e22572852"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Challenge d'" + IF($F{chalId}.startsWith("H"),"hiver","été") + " " + $F{chalId}.substring( 1 )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="47" y="50" width="192" height="30" uuid="3540ea19-7703-4ffd-b009-bfaac1d58ae4"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Le " + new SimpleDateFormat("dd / MM / yyyy").format($F{dateReg})]]></textFieldExpression>
+			</textField>
+			<image hAlign="Right" vAlign="Middle">
+				<reportElement x="350" y="3" width="194" height="77" uuid="bfd103ff-666f-481f-8e25-9c01c19844c3"/>
+				<imageExpression><![CDATA["reports/dahouet.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="39" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="544e89f7-0fd1-4142-aa23-e335e3be7007"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="128" y="17" width="111" height="15" uuid="f76e290f-a4dd-4ca5-be67-d93b5b16c365"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[N° Voilier]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="250" y="17" width="111" height="15" uuid="e45cd3e1-e0ab-48dd-8db5-d830f1ac79bf"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Skipper]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="368" y="17" width="67" height="15" uuid="8994c012-dc04-4d8c-8394-0b6287ed893c"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Présence
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="444" y="17" width="111" height="15" uuid="e6a68804-656d-4575-8411-ace3f0ea3c46"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Absence/Retard]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="10" y="17" width="111" height="15" uuid="3b0f2e69-d738-4e51-9f97-b8fb778b9116"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[N°
+]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="42" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="cb229859-ab9a-4aa3-afa2-84439642f4ee"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="128" y="0" width="111" height="15" uuid="d88db2ed-941e-43ed-8b8d-a93f38d22390"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{numVoile_Voilier}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="250" y="0" width="111" height="15" uuid="ebaa5bdc-15e6-475b-a951-70b3da5f5b51"/>
+				<textFieldExpression><![CDATA[$F{prenomPersonne} + " " + $F{nomPersonne}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="10" y="0" width="111" height="15" uuid="4b254ef3-98e3-413b-8c07-706dcd0474f8"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="401e0e59-de38-4dd2-8257-418cb489177c"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="deb23d85-47bb-4de6-978e-113ff117188c"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="c6ce76ba-6e11-41e2-9415-72dc2eff001b"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="5a79d2a0-bcde-4ad5-adf0-c4eb2066f6dd"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -5,12 +5,24 @@
  */
 package com.afpa.dahouet.ui;
 
+import com.afpa.dahouet.DAO.DBConnection;
 import com.afpa.dahouet.DAO.VoilierDAO;
+import com.afpa.dahouet.Utils;
 import com.afpa.dahouet.model.ClasseVoilier;
 import com.afpa.dahouet.model.ClubNautique;
 import com.afpa.dahouet.model.Proprietaire;
 import com.afpa.dahouet.model.Voilier;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+
 
 /**
  *
@@ -63,6 +75,7 @@ public class VoilierForm extends javax.swing.JFrame {
         jMenuItem_Quit = new javax.swing.JMenuItem();
         JEditMenu = new javax.swing.JMenu();
         JRepportMenu = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         JHelpMenu = new javax.swing.JMenu();
 
         jMenu1.setText("jMenu1");
@@ -265,7 +278,7 @@ public class VoilierForm extends javax.swing.JFrame {
                 .addGroup(jPanel_FormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         JFileMenu.setText("Fichier");
@@ -289,6 +302,15 @@ public class VoilierForm extends javax.swing.JFrame {
         jMenuBar1.add(JEditMenu);
 
         JRepportMenu.setText("Rapport");
+
+        jMenuItem1.setText("Générer apointement régate");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        JRepportMenu.add(jMenuItem1);
+
         jMenuBar1.add(JRepportMenu);
 
         JHelpMenu.setText("?");
@@ -442,6 +464,20 @@ public class VoilierForm extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItem_QuitActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+
+//        try {
+//
+//            JasperReport report = (JasperReport) JRLoader.loadObject(getClass().getResource("/reports/dahouet.jasper"));
+//            JasperPrint print = JasperFillManager.fillReport(report, new HashMap<>(), DBConnection.gettingConnected());
+//            JasperExportManager.exportReportToPdfFile(print, "/home/vanel/Documents/dahouet.pdf");
+//        } catch (JRException ex) {
+//            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+
+
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -498,6 +534,7 @@ public class VoilierForm extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem_Quit;
     private javax.swing.JPanel jPanel_Form;
     private javax.swing.JPanel jPanel_List;

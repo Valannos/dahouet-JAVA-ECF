@@ -6,11 +6,13 @@
 package com.afpa.dahouet;
 
 import com.afpa.dahouet.model.Personne;
-import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 /**
  *
@@ -41,7 +43,7 @@ public class Utils {
         for (int i = atSignPosition + 1; i < mail.length(); i++) {
             System.out.println("Checking . position : " + i);
             if (mail.charAt(i) == '.') {
-             
+
                 pointPosition = i;
                 System.out.println("FOUND . : " + i);
                 break;
@@ -124,9 +126,6 @@ public class Utils {
 
         return median;
     }
-    
-   
-    
 
    
 
