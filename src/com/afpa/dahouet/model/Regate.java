@@ -6,6 +6,7 @@
 package com.afpa.dahouet.model;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -17,6 +18,7 @@ public class Regate {
     private Date date;
     private double distance;
     private Challenge challenge;
+    private List<Commissaire> commissaires;
 
     public Regate(String id, Date date, double distance, Challenge challenge) {
         this.id = id;
@@ -24,6 +26,24 @@ public class Regate {
         this.distance = distance;
         this.challenge = challenge;
     }
+
+    public Regate(String id, Date date, double distance, Challenge challenge, List<Commissaire> commissaires) {
+        this.id = id;
+        this.date = date;
+        this.distance = distance;
+        this.challenge = challenge;
+        this.commissaires = commissaires;
+    }
+
+    public List<Commissaire> getCommissaires() {
+        return commissaires;
+    }
+
+    public void setCommissaires(List<Commissaire> commissaires) {
+        this.commissaires = commissaires;
+    }
+    
+    
 
 
 

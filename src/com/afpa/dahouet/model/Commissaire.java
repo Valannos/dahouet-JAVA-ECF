@@ -18,6 +18,12 @@ public class Commissaire extends Personne {
         this.nameComite = nameComite;
     }
 
+    public Commissaire(String nameComite, String name, String firstname, int anneeNaissance) {
+        super(name, firstname, anneeNaissance);
+        this.nameComite = nameComite;
+    }
+    
+
     public String getNameComite() {
         return nameComite;
     }

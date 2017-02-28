@@ -7,6 +7,7 @@ package com.afpa.dahouet.DAO;
 
 import com.afpa.dahouet.model.Concurrent;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -22,13 +23,13 @@ import java.util.logging.Logger;
  * @author Valannos
  */
 public class ConcurrentDAO {
-    
+
     public static List<Concurrent> findAll() {
-        
+
         List<Concurrent> concurrents = new ArrayList<>();
         Connection connect = DBConnection.gettingConnected();
         try {
-            Statement state =  connect.createStatement();
+            Statement state = connect.createStatement();
             String sql = "SELECT c.numLicence, c.anneeLic, p.nomPersonne, p.prenomPersonne, p.dateNaissance FROM concurrent c INNER JOIN personne p ON p.id = c.id_Personne";
             ResultSet rs = state.executeQuery(sql);
             Date date = rs.getDate("p.dateNaissance");
@@ -39,9 +40,42 @@ public class ConcurrentDAO {
         } catch (SQLException ex) {
             Logger.getLogger(ConcurrentDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
-        
+
         return concurrents;
     }
-    
+
+    public static Concurrent findById(int id) {
+
+        Concurrent concurrent = null;
+        Connection connect = DBConnection.gettingConnected();
+        String sql = "SELECT c.numLicence, c.anneeLic, p.nomPersonne, p.prenomPersonne, p.dateNaissance FROM concurrent c INNER JOIN personne p ON p.id = c.id_Personne WHERE c.numLicence = ?";
+        
+        try {
+            PreparedStatement ps = connect.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                
+                int numLicence = rs.getInt("c.numLicence");
+                int anneeLic = rs.getInt("c.anneeLic");
+                String name = rs.getString("p.nomPersonne");
+                String firstname = rs.getString("p.firstname");
+                Date dateNaissance = rs.getDate("p.dateNaissance");
+                Calendar c = Calendar.getInstance();
+                c.setTime(dateNaissance);
+                int anneeNaissance = c.get(Calendar.YEAR);
+                
+                concurrent = new Concurrent(numLicence, anneeLic, name, firstname, anneeNaissance);
+                
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ConcurrentDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+
+        return concurrent;
+    }
+
 }
