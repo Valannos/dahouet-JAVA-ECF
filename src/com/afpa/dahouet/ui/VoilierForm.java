@@ -5,23 +5,12 @@
  */
 package com.afpa.dahouet.ui;
 
-import com.afpa.dahouet.DAO.DBConnection;
 import com.afpa.dahouet.DAO.VoilierDAO;
-import com.afpa.dahouet.Utils;
 import com.afpa.dahouet.model.ClasseVoilier;
 import com.afpa.dahouet.model.ClubNautique;
 import com.afpa.dahouet.model.Proprietaire;
 import com.afpa.dahouet.model.Voilier;
-import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.util.JRLoader;
 
 
 /**
