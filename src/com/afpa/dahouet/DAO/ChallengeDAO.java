@@ -32,11 +32,17 @@ public class ChallengeDAO {
             Connection connection = DBConnection.gettingConnected();
             Statement state = connection.createStatement();
             ResultSet rs = state.executeQuery(sql);
-            String id = rs.getString("c.id");
+            
+            while (rs.next()) {
+                     String id = rs.getString("c.id");
             Date startingDate = rs.getDate("c.debChal");
             Date endingDate = rs.getDate("c.finChal");
             Challenge challenge = new Challenge(id, startingDate, endingDate);
             challenges.add(challenge);
+                
+                
+            }
+       
 
         } catch (SQLException ex) {
             Logger.getLogger(ChallengeDAO.class

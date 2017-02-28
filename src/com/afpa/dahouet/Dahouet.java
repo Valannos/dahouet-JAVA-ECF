@@ -5,9 +5,11 @@
  */
 package com.afpa.dahouet;
 
+import com.afpa.dahouet.DAO.ChallengeDAO;
 import com.afpa.dahouet.model.*;
 import com.afpa.dahouet.model.Licencie;
 import com.afpa.dahouet.ui.VoilierForm;
+import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import static spark.Spark.*;
 
 /**
  *
@@ -74,6 +77,15 @@ public class Dahouet {
 
             System.err.println("ERREUR : " + e.getClass() + " : " + e.getMessage());
         }
+        
+        
+        get("/hello", (req, res)-> {
+        
+        List<Challenge> cs =  ChallengeDAO.findAll();
+            Gson gson = new Gson();
+          String json =  gson.toJson(cs);
+        return json;
+        });
         
         
         
