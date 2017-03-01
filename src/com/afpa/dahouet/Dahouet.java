@@ -88,7 +88,7 @@ public class Dahouet {
             Challenge challenge = ChallengeDAO.getCurrentChallenge();
             Gson gson = new Gson();
             String json = gson.toJson(challenge);
-
+            res.type("application/json");
             return json;
 
         }
@@ -99,7 +99,7 @@ public class Dahouet {
             Challenge challenge = ChallengeDAO.getCurrentChallenge();
             List<Regate> regates = RegateDAO.findByChallenge(challenge);
             Gson gson = new Gson();
-
+            res.type("application/json");
             return gson.toJson(regates);
 
         });
@@ -111,13 +111,28 @@ public class Dahouet {
             List<Participation> participations = new ArrayList<>();
             for (Regate regate : regates) {
 
-                participations.addAll(ParticipationDAO.findAllWithResultsFromRegate(regate));
+                participations.addAll(ParticipationDAO.findFromRegateWithResults(regate));
 
             }
             gson.toJson(participations);
             return gson.toJson(participations);
 
         });
+
+        get("/participations_without_result/:id", (req, res) -> {
+
+            String id = req.params(":id");
+            Regate regate = RegateDAO.findById(id);
+            List<Participation> participations = ParticipationDAO.findFromRegateWithoutResult(regate);
+            Gson gson = new Gson();
+            String json = gson.toJson(participations);
+
+            res.type("application/json");
+
+            return json; //To change body of generated lambdas, choose Tools | Templates.
+        });
+
+    }
 
 //         List<Proprietaire> proprietaires = ProprietaireDAO.findAll();
 //        for (Proprietaire proprietaire : proprietaires) {
@@ -129,6 +144,6 @@ public class Dahouet {
 //        for (Voilier v : vs) {
 //            System.out.println(v.getNom());
 //        }
-    }
-
 }
+
+

@@ -40,6 +40,72 @@ public class Participation {
         this.codeResultat = codeResultat;
         this.tpsReel = tpsReel;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Time getTpsReg() {
+        return tpsReg;
+    }
+
+    public void setTpsReg(Time tpsReg) {
+        this.tpsReg = tpsReg;
+    }
+
+    public Time getTpsReel() {
+        return tpsReel;
+    }
+
+    public void setTpsReel(Time tpsReel) {
+        this.tpsReel = tpsReel;
+    }
+
+    public int getScrReg() {
+        return scrReg;
+    }
+
+    public void setScrReg(int scrReg) {
+        this.scrReg = scrReg;
+    }
+
+    public Regate getRegate() {
+        return regate;
+    }
+
+    public void setRegate(Regate regate) {
+        this.regate = regate;
+    }
+
+    public Voilier getVoilier() {
+        return voilier;
+    }
+
+    public void setVoilier(Voilier voilier) {
+        this.voilier = voilier;
+    }
+
+    public Concurrent getSkipper() {
+        return skipper;
+    }
+
+    public void setSkipper(Concurrent skipper) {
+        this.skipper = skipper;
+    }
+
+    public CodeResultat getCodeResultat() {
+        return codeResultat;
+    }
+
+    public void setCodeResultat(CodeResultat codeResultat) {
+        this.codeResultat = codeResultat;
+    }
+    
+    
     
     
     

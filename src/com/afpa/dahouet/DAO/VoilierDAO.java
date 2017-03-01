@@ -42,7 +42,7 @@ public class VoilierDAO {
                 String nomVoilier = res.getString("v.nomVoilier");
                 int idPro = res.getInt("v.id_Proprietaire");
                 int idClVo = res.getInt("v.id_Classe");
-                Proprietaire pro = ProprietaireDAO.findById(idPro);
+                Proprietaire pro = ProprietaireDAO.findByProprietaireId(idPro);
                 ClasseVoilier cv = ClasseVoilierDAO.findById(idClVo);
                 Voilier voilier = new Voilier(pro, cv, nomVoilier, id);
                 voiliers.add(voilier);
@@ -60,17 +60,40 @@ public class VoilierDAO {
 
         Voilier v = null;
 
+        Connection connection = DBConnection.gettingConnected();
+        String sql = "SELECT v.nomVoilier, v.id_Proprietaire, v.id_Classe FROM voilier v WHERE v.numVoile = ?";
+
+        PreparedStatement ps;
+        try {
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                String nomVoilier = rs.getString("v.nomVoilier");
+                Proprietaire proprietaire = ProprietaireDAO.findByProprietaireId(rs.getInt("v.id_Proprietaire"));
+                ClasseVoilier cv = ClasseVoilierDAO.findById(rs.getInt("v.id_Classe"));
+                v = new Voilier(proprietaire, cv, nomVoilier);
+                
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(VoilierDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         return v;
     }
 
     public static int insertVoilier(Voilier v) {
 
         Connection connection = DBConnection.gettingConnected();
-         String sql = "INSERT INTO voilier(nomVoilier, id_Proprietaire, id_Classe) VALUES (?,?,?)";
+        String sql = "INSERT INTO voilier(nomVoilier, id_Proprietaire, id_Classe) VALUES (?,?,?)";
         int id = 0;
         try {
 
-           System.out.println(v.getPro().getId() + " " + v.getPro().getName() + " " + v.getClasse().getId() + " " + v.getNom());
+            System.out.println(v.getPro().getId() + " " + v.getPro().getName() + " " + v.getClasse().getId() + " " + v.getNom());
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, v.getNom());
             ps.setInt(2, v.getPro().getId_Pro());

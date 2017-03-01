@@ -98,6 +98,9 @@ public class RegateDAO {
                 double distance = rs.getDouble("r.distance");
                 String id = rs.getString("r.id");
                 Regate regate = new Regate(id, dateReg, distance, challenge);
+            
+                List<Commissaire> commissaires = CommissaireDAO.findCommissairesFromRegate(regate);
+                regate.setCommissaires(commissaires);
                 regates.add(regate);
 
             }

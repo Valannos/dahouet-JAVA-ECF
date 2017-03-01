@@ -61,8 +61,12 @@ public class ParticipationDAO {
         return null;
 
     }
-
-    public static List<Participation> findAllWithoutResultFromRegate(Regate regate) {
+/**
+ * Fetch in database for all Participations in a single Regate where NO results has not been yet colleted
+ * @param regate
+ * @return A list of Participation
+ */
+    public static List<Participation> findFromRegateWithoutResult(Regate regate) {
 
         List<Participation> participations = new ArrayList<>();
 
@@ -74,7 +78,7 @@ public class ParticipationDAO {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, regate.getId());
 
-            ResultSet rs = ps.executeQuery(sql);
+            ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
 
@@ -95,7 +99,7 @@ public class ParticipationDAO {
 
     }
 
-    public static List<Participation> findAllWithResultsFromRegate(Regate regate) {
+    public static List<Participation> findFromRegateWithResults(Regate regate) {
 
         List<Participation> participations = new ArrayList<>();
         Connection connection = DBConnection.gettingConnected();

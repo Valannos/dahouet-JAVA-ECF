@@ -6,13 +6,11 @@
 package com.afpa.dahouet.DAO;
 
 import com.afpa.dahouet.model.Commissaire;
-import com.afpa.dahouet.model.Concurrent;
 import com.afpa.dahouet.model.Regate;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -63,25 +61,24 @@ public class CommissaireDAO {
 
         return commissaire;
     }
-
+/**
+ * Fetch in database for a list of Commissaires in charge of Regate supervision
+ * 
+ * @param regate
+ * @return A List of Commissaire objects
+ */
     public static List<Commissaire> findCommissairesFromRegate(Regate regate) {
 
         List<Commissaire> comissaires = new ArrayList<>();
         Connection connect = DBConnection.gettingConnected();
         try {
 
-            String sql = "SELECT c.id, p.nomPersonne, p.prenomPersonne, p.dateNaissance, cr.nomComite FROM comissaire c\n"
-                    + "INNER JOIN personne p \n"
-                    + "ON c.id_Personne = p.id\n"
-                    + "INNER JOIN juger j \n"
-                    + "ON j.id_Comissaire = c.id\n"
-                    + "INNER JOIN comite_regional cr \n"
-                    + "ON cr.id = c.id_Comite_Regional\n"
-                    + "WHERE j.id_Regate = ?";
+            String sql = "SELECT c.id, p.nomPersonne, p.prenomPersonne, p.dateNaissance, cr.nomComite FROM comissaire c INNER JOIN personne p ON c.id_Personne = p.id INNER JOIN juger j ON j.id_Comissaire = c.id INNER JOIN comite_regional cr ON cr.id = c.id_Comite_Regional WHERE j.id_Regate = ?";
             PreparedStatement state = connect.prepareStatement(sql);
-            state.setString(1, regate.getId());
+                  System.out.println(" " +regate.getId());
+         state.setString(1, regate.getId());
 
-            ResultSet rs = state.executeQuery(sql);
+            ResultSet rs = state.executeQuery();
 
             while (rs.next()) {
 
