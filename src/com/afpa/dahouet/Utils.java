@@ -41,7 +41,7 @@ public class Utils {
 
                 pointPosition = i;
                 System.out.println("FOUND . : " + i);
-                break;
+            
             }
         }
 

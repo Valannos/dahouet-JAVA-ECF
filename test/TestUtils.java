@@ -52,6 +52,13 @@ public class TestUtils {
         System.err.println("Substring after . size is below 2");
         assertTrue(Utils.checkMail("aa@ff.fr"));
         System.err.println("email is valid");
+        
+        assertTrue(Utils.checkMail("aa@ff.f.fr"));
+        System.err.println("email is valid");
+        
+        
+         assertFalse(Utils.checkMail("aa@ff.rf.f"));
+        System.err.println("Substring after final . is below 2");
 
     }
 }
