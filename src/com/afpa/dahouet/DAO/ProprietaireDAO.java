@@ -58,6 +58,11 @@ public class ProprietaireDAO {
         return proprietaires;
     }
 
+    /**
+     * Fetch in database a Proprietaire object based on id_Proprietaire
+     * @param id
+     * @return Proprietaire object
+     */
     public static Proprietaire findByProprietaireId(int id) {
 
         Proprietaire pro = null;
@@ -88,7 +93,11 @@ public class ProprietaireDAO {
 
         return pro;
     }
-
+/**
+ * Fetch in database a list of Proprietaire affilated to the same ClubNautique 
+ * @param clubNautique
+ * @return 
+ */
     public static List<Proprietaire> findByClubNautique(ClubNautique clubNautique) {
 
         List<Proprietaire> proprietaires = new ArrayList<>();
@@ -128,6 +137,7 @@ public class ProprietaireDAO {
      * @param p : An instance of Proprietaire
      * @return identifier of related Personne
      */
+    @Deprecated
     public static int getProprietaireId(Proprietaire p) {
 
         Connection connect = DBConnection.gettingConnected();

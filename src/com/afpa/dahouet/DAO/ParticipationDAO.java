@@ -98,7 +98,11 @@ public class ParticipationDAO {
         return participations;
 
     }
-
+/**
+ * Return a list of Participation with Skipper, Voilier and Commissaire using a constructor that define no result
+ * @param regate
+ * @return list of Participation
+ */
     public static List<Participation> findFromRegateWithResults(Regate regate) {
 
         List<Participation> participations = new ArrayList<>();

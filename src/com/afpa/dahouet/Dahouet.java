@@ -83,6 +83,11 @@ public class Dahouet {
             String json = gson.toJson(cs);
             return json;
         });
+        
+        
+        /**
+         * Return current Challenge based on local date
+         */
         get("/currentChallenge", (Request req, Response res) -> {
 
             Challenge challenge = ChallengeDAO.getCurrentChallenge();

@@ -21,8 +21,12 @@ public class DBConnection {
 
     final static private String URL_DB = "jdbc:mysql://localhost:3306/dahouet";
     final static private String LOGIN_DB = "root";
-    final static private String PASSWORD_DB = "";
+    final static private String PASSWORD_DB = "admin";
 
+    /**
+     * Establish a connection to dahouet database as full-rights root user
+     * @return a connection object to perform queries
+     */
     public static Connection gettingConnected() {
 
         Connection connect = null;

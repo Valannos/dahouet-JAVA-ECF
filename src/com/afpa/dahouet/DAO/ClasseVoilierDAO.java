@@ -88,7 +88,11 @@ public class ClasseVoilierDAO {
 
         return cv;
     }
-
+/**
+ * Fetch in databse 
+ * @param s
+ * @return 
+ */
     public static List<ClasseVoilier> findBySerie(char s) {
 
         List<ClasseVoilier> classeVoiliers = new ArrayList<>();

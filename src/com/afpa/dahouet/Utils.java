@@ -14,6 +14,13 @@ import java.util.List;
  * @author Afpa
  */
 public class Utils {
+    
+    /**
+     * Return a boolean that valid, or not, e-mail format 
+     * 
+     * @param mail
+     * @return true if format is valid, else false
+     */
 
     public static boolean checkMail(String mail) {
 
@@ -97,6 +104,7 @@ public class Utils {
      * @return An integer value equals to the average of all Personne instance
      * provided by the list
      */
+    
     public static int averageAge(List<Personne> personnes) {
 
         int somme = 0;

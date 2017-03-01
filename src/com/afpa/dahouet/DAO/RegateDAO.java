@@ -81,7 +81,11 @@ public class RegateDAO {
 
         return regate;
     }
-
+/**
+ * Fetch in database for all Regate 
+ * @param challenge
+ * @return 
+ */
     public static List<Regate> findByChallenge(Challenge challenge) {
 
         List<Regate> regates = new ArrayList<>();

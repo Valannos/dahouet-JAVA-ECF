@@ -21,6 +21,7 @@ import java.util.logging.Logger;
  *
  * @author Valannos
  */
+
 public class ChallengeDAO {
 
     public static List<Challenge> findAll() {
