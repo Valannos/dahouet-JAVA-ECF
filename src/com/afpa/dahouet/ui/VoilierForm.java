@@ -59,8 +59,10 @@ public class VoilierForm extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jComboBox_Classe = new javax.swing.JComboBox<>();
+        jButton3 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         JFileMenu = new javax.swing.JMenu();
+        jMenuItem_AddProprio = new javax.swing.JMenuItem();
         jMenuItem_Quit = new javax.swing.JMenuItem();
         JEditMenu = new javax.swing.JMenu();
         JRepportMenu = new javax.swing.JMenu();
@@ -196,6 +198,13 @@ public class VoilierForm extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setText("Ajouter Propriétaire...");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel_FormLayout = new javax.swing.GroupLayout(jPanel_Form);
         jPanel_Form.setLayout(jPanel_FormLayout);
         jPanel_FormLayout.setHorizontalGroup(
@@ -208,6 +217,8 @@ public class VoilierForm extends javax.swing.JFrame {
                         .addComponent(jButton1)
                         .addGap(18, 18, 18)
                         .addComponent(jButton2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel_FormLayout.createSequentialGroup()
                         .addGroup(jPanel_FormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -266,7 +277,8 @@ public class VoilierForm extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(jPanel_FormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -276,6 +288,14 @@ public class VoilierForm extends javax.swing.JFrame {
                 JFileMenuActionPerformed(evt);
             }
         });
+
+        jMenuItem_AddProprio.setText("Ajouter Propriétaire...");
+        jMenuItem_AddProprio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_AddProprioActionPerformed(evt);
+            }
+        });
+        JFileMenu.add(jMenuItem_AddProprio);
 
         jMenuItem_Quit.setText("Quitter");
         jMenuItem_Quit.addActionListener(new java.awt.event.ActionListener() {
@@ -467,6 +487,16 @@ public class VoilierForm extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+       FormProprietaire formProprietaire = new FormProprietaire(this, rootPaneCheckingEnabled);
+       formProprietaire.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jMenuItem_AddProprioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_AddProprioActionPerformed
+        FormProprietaire formProprietaire = new FormProprietaire(this, rootPaneCheckingEnabled);
+       formProprietaire.setVisible(true);
+    }//GEN-LAST:event_jMenuItem_AddProprioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -505,6 +535,7 @@ public class VoilierForm extends javax.swing.JFrame {
     private javax.swing.JMenu JRepportMenu;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JCheckBox jCheckBox_H;
     private javax.swing.JCheckBox jCheckBox_Q;
     private javax.swing.JComboBox<String> jComboBox_Classe;
@@ -524,6 +555,7 @@ public class VoilierForm extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem_AddProprio;
     private javax.swing.JMenuItem jMenuItem_Quit;
     private javax.swing.JPanel jPanel_Form;
     private javax.swing.JPanel jPanel_List;

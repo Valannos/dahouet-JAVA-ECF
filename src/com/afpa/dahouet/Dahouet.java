@@ -34,6 +34,7 @@ public class Dahouet {
      */
     public static void main(String[] args) {
 
+        /* UI */
         try {
 
             UIManager.setLookAndFeel(
@@ -45,6 +46,10 @@ public class Dahouet {
         }
         VoilierForm win = new VoilierForm();
         win.setVisible(true);
+
+        /* CONSOLE */
+        
+        System.out.println(Color.ANSI_PURPLE + "****RESULTATS ALGORITHMIE & OBJECT****" + Color.ANSI_RESET);
 
         List<Personne> personnes = new ArrayList<>();
 
@@ -63,18 +68,22 @@ public class Dahouet {
 
         Date date = new Date();
 
-        System.out.println("Moyenne d\'âge : " + Utils.averageAge(personnes));
-        System.out.println("Valeur médiane : " + Utils.medianAge(personnes));
+        System.out.println(Color.ANSI_YELLOW + "Moyenne d\'âge : " + Color.ANSI_RESET + Utils.averageAge(personnes));
+        System.out.println(Color.ANSI_YELLOW + "Valeur médiane : " + Color.ANSI_RESET + Utils.medianAge(personnes));
 
         System.out.print(Utils.toStringList(personnes));
 
         try {
             double pts = lic1.calculPoints(date, 20.5);
-            System.out.print("Nombre de pts : " + pts);
+            System.out.print(Color.ANSI_YELLOW + "Nombre de pts : " + Color.ANSI_RESET + pts);
         } catch (MismatchYearsException e) {
 
             System.err.println("ERREUR : " + e.getClass() + " : " + e.getMessage());
         }
+        
+         System.out.println(Color.ANSI_PURPLE + "****FIN RESULTATS ALGORITHMIE & POO****" + Color.ANSI_RESET);
+        
+        /* FIN CONSOLE */
 
         get("/hello", (Request req, Response res) -> {
 
@@ -83,8 +92,7 @@ public class Dahouet {
             String json = gson.toJson(cs);
             return json;
         });
-        
-        
+
         /**
          * Return current Challenge based on local date
          */
@@ -134,10 +142,10 @@ public class Dahouet {
 
             res.type("application/json");
 
-            return json; 
+            return json;
         });
-        
-         get("/participations_with_result/:id", (req, res) -> {
+
+        get("/participations_with_result/:id", (req, res) -> {
 
             String id = req.params(":id");
             Regate regate = RegateDAO.findById(id);
@@ -147,11 +155,8 @@ public class Dahouet {
 
             res.type("application/json");
 
-            return json; 
+            return json;
         });
-        
-        
-        
 
     }
 
@@ -166,5 +171,3 @@ public class Dahouet {
 //            System.out.println(v.getNom());
 //        }
 }
-
-

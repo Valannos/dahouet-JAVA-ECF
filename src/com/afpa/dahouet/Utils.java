@@ -16,7 +16,7 @@ import java.util.List;
 public class Utils {
     
     /**
-     * Return a boolean that valid, or not, e-mail format 
+     * Return a boolean depending on the validity of e-mail format received in parameters 
      * 
      * @param mail
      * @return true if format is valid, else false
@@ -84,6 +84,12 @@ public class Utils {
         return true;
     }
 
+    /**
+     * Performs concatenation of toString from a <b>Personne</b> list
+     * 
+     * @param personnes
+     * @return A string of concatenated String object
+     */
     public static String toStringList(List<Personne> personnes) {
 
         String listing = "";
@@ -118,6 +124,12 @@ public class Utils {
         return moy;
     }
 
+    
+    /**
+     * Determine the median age value of a <b>Personne</b> list.
+     * @param personnes
+     * @return median age value
+     */
     public static int medianAge(List<Personne> personnes) {
 
         int median = 0;

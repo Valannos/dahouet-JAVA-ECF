@@ -5,6 +5,7 @@
  */
 package com.afpa.dahouet.model;
 
+import com.afpa.dahouet.Color;
 import com.afpa.dahouet.MismatchYearsException;
 import java.util.Calendar;
 import java.util.Date;
@@ -48,7 +49,7 @@ public class Licencie extends Personne {
     @Override
     public String toString() {
 
-        return "Licencie{" + "numLicence=" + numLicence + ", pointsFFV=" + pointsFFV + ", anneeLicence=" + anneeLicence + ", " + super.toString();
+        return Color.ANSI_GREEN + "Licencie"+ Color.ANSI_CYAN + "{" + "numLicence=" + numLicence + ", pointsFFV=" + pointsFFV + ", anneeLicence=" + anneeLicence + ", " + super.toString();
     }
 
 }

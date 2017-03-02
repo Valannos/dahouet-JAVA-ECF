@@ -5,6 +5,8 @@
  */
 package com.afpa.dahouet.model;
 
+import com.afpa.dahouet.Color;
+import java.util.Date;
 import java.util.Calendar;
 
 /**
@@ -19,6 +21,7 @@ public abstract class Personne implements Comparable {
     protected String firstname;
     protected String email;
     protected int anneeNaissance;
+    protected Date dateNaissance;
 
     public Personne(String name, String firstname, String email, int anneeNaissance) {
         this.name = name;
@@ -32,8 +35,19 @@ public abstract class Personne implements Comparable {
         this.firstname = firstname;
         this.anneeNaissance = anneeNaissance;
     }
-    
-    
+
+    public Personne(String name, String firstname, String email, Date dateNaissance) {
+        this.name = name;
+        this.firstname = firstname;
+        this.email = email;
+        this.dateNaissance = dateNaissance;
+    }
+
+    public Personne(String name, String firstname, Date dateNaissance) {
+        this.name = name;
+        this.firstname = firstname;
+        this.dateNaissance = dateNaissance;
+    }
 
     public String getName() {
         return name;
@@ -78,7 +92,7 @@ public abstract class Personne implements Comparable {
     @Override
     public String toString() {
         int age = getAge();
-        return "name=" + name + ", firstname=" + firstname + ", email=" + email + ", age=" + age + '}' /*+ "\n"*/;
+        return "name=" + name + ", firstname=" + firstname + ", email=" + email + ", age=" + age + '}' + Color.ANSI_RESET /*+ "\n"*/;
     }
 
     @Override

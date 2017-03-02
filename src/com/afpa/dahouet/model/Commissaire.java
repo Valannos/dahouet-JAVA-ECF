@@ -5,6 +5,8 @@
  */
 package com.afpa.dahouet.model;
 
+import com.afpa.dahouet.Color;
+
 /**
  *
  * @author Afpa
@@ -36,7 +38,7 @@ public class Commissaire extends Personne {
 
     @Override
     public String toString() {
-        return "Commissaire{" + "nameComite=" + nameComite + ", " +  super.toString();
+        return Color.ANSI_BLUE + "Commissaire"+ Color.ANSI_CYAN + "{" + "nameComite=" + nameComite + ", " +  super.toString();
     }
     
 

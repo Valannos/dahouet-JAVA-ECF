@@ -5,6 +5,9 @@
  */
 package com.afpa.dahouet.model;
 
+import com.afpa.dahouet.Color;
+import java.util.Date;
+
 /**
  *
  * @author Afpa
@@ -14,6 +17,7 @@ public class Proprietaire extends Personne {
     private ClubNautique clubNautique;
     private int id;
     private int id_Pro;
+    
 
     public int getId_Pro() {
         return id_Pro;
@@ -22,7 +26,7 @@ public class Proprietaire extends Personne {
     public void setId_Pro(int id_Pro) {
         this.id_Pro = id_Pro;
     }
-    
+
     public Proprietaire(String name, String firstname, String email, int anneeNaissance) {
         super(name, firstname, email, anneeNaissance);
     }
@@ -48,7 +52,11 @@ public class Proprietaire extends Personne {
         this.id_Pro = id_Pro;
     }
 
-
+    public Proprietaire(ClubNautique clubNautique, String name, String firstname, Date dateNaissance) {
+        super(name, firstname, dateNaissance);
+        this.clubNautique = clubNautique;
+    }
+    
     
 
     public int getId() {
@@ -58,12 +66,6 @@ public class Proprietaire extends Personne {
     public void setId(int id) {
         this.id = id;
     }
-    
-    
-    
-    
-    
-    
 
     public ClubNautique getClubNautique() {
         return clubNautique;
@@ -104,14 +106,19 @@ public class Proprietaire extends Personne {
     public void setAnneeNaissance(int anneeNaissance) {
         this.anneeNaissance = anneeNaissance;
     }
-    
-    
-    
-    
 
     @Override
     public String toString() {
-        return "Proprietaire{"   + super.toString();
+        return Color.ANSI_RED + "Proprietaire"+ Color.ANSI_CYAN + "{" + super.toString();
     }
+
+    public Date getDateNaissance() {
+        return dateNaissance;
+    }
+
+    public void setDateNaissance(Date dateNaissance) {
+        this.dateNaissance = dateNaissance;
+    }
+    
 
 }
