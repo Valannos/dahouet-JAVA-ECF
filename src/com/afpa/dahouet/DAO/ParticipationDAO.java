@@ -120,11 +120,12 @@ public class ParticipationDAO {
                 Time tpsReg = rs.getTime("p.tpsComp");
                 Time tpsReel = rs.getTime("p.tpsReel");
                 int scrReg = rs.getInt("p.scrReg");
+                int rank = rs.getInt("p.rangReg");
 
                 Voilier voilier = VoilierDAO.finById(rs.getInt("p.numVoile_Voilier"));
                 Concurrent skipper = ConcurrentDAO.findById(rs.getInt("p.numLicence_Concurrent"));
                 CodeResultat codeResultat = CodeResultatDAO.findById(rs.getInt("p.id_Codes_Resultats"));
-                Participation participation = new Participation(id, tpsReg, tpsReel, scrReg, regate, voilier, skipper, codeResultat);
+                Participation participation = new Participation(id, tpsReg, tpsReel, scrReg, rank, regate, voilier, skipper, codeResultat);
                 participations.add(participation);
             }
         } catch (SQLException ex) {

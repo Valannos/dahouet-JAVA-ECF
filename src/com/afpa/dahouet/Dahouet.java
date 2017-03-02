@@ -134,8 +134,24 @@ public class Dahouet {
 
             res.type("application/json");
 
-            return json; //To change body of generated lambdas, choose Tools | Templates.
+            return json; 
         });
+        
+         get("/participations_with_result/:id", (req, res) -> {
+
+            String id = req.params(":id");
+            Regate regate = RegateDAO.findById(id);
+            List<Participation> participations = ParticipationDAO.findFromRegateWithResults(regate);
+            Gson gson = new Gson();
+            String json = gson.toJson(participations);
+
+            res.type("application/json");
+
+            return json; 
+        });
+        
+        
+        
 
     }
 

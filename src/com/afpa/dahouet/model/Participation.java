@@ -21,16 +21,18 @@ public class Participation {
     private Voilier voilier;
     private Concurrent skipper;
     private CodeResultat codeResultat;
+    private int rank;
 
     public Participation(int id, Regate regate, Voilier voilier, Concurrent skipper) {
         this.id = id;
         this.regate = regate;
         this.voilier = voilier;
         this.skipper = skipper;
+      
         
     }
 
-    public Participation(int id, Time tpsReg, Time tpsReel, int scrReg, Regate regate, Voilier voilier, Concurrent skipper, CodeResultat codeResultat) {
+    public Participation(int id, Time tpsReg, Time tpsReel, int scrReg, int rank, Regate regate, Voilier voilier, Concurrent skipper, CodeResultat codeResultat) {
         this.id = id;
         this.tpsReg = tpsReg;
         this.scrReg = scrReg;
@@ -39,6 +41,7 @@ public class Participation {
         this.skipper = skipper;
         this.codeResultat = codeResultat;
         this.tpsReel = tpsReel;
+        this.rank = rank;
     }
 
     public int getId() {
@@ -103,6 +106,14 @@ public class Participation {
 
     public void setCodeResultat(CodeResultat codeResultat) {
         this.codeResultat = codeResultat;
+    }
+
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
     }
     
     
