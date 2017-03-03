@@ -75,7 +75,7 @@ public class Dahouet {
 
         System.out.println(Color.ANSI_PURPLE + "----Ajout d'une personne----" + Color.ANSI_RESET);
 
-        personnes.add(new Commissaire("Normadie", "Jacq", "Blo@fgf.fr", 1985));
+        personnes.add(new Commissaire("Normadie", "Jacq", "Daniel", "Blo@fgf.fr", 1985));
         System.out.println(Color.ANSI_YELLOW + "Longueur de la liste : " + Color.ANSI_RESET + personnes.size());
         System.out.println(Color.ANSI_BLUE + personnes.get(personnes.size() - 1).toString());
         System.out.println(Color.ANSI_PURPLE + "----Calcul de la moyenne et de la médiane----" + Color.ANSI_RESET);
