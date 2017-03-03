@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-02-28T15:15:15 -->
+<!-- 2017-03-03T23:37:10 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dahouet" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a1f690a3-5977-4467-85f8-6b0bcd5b7210">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="JDBC_MySQL"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MySQL DB"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="270"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="722"/>
 	<style name="Title" fontName="Arial" fontSize="26" isBold="true"/>
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
 	<style name="Detail" fontName="Arial" fontSize="12"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT part.id as 'partId', part.numVoile_Voilier, p.nomPersonne, p.prenomPersonne, part.id_Regate, reg.dateReg, chal.id as 'chalId' FROM participation part
+		<![CDATA[SELECT DISTINCT part.id as "partId", part.numVoile_Voilier, p.nomPersonne as "nom_skipper", part.id_Regate, reg.dateReg, chal.id as "chalId" FROM participation part
 INNER JOIN concurrent conc 
 ON part.numLicence_Concurrent = conc.numLicence
 INNER JOIN personne p 
@@ -25,8 +27,7 @@ WHERE reg.id = "H201703"]]>
 	</queryString>
 	<field name="partId" class="java.lang.Integer"/>
 	<field name="numVoile_Voilier" class="java.lang.Integer"/>
-	<field name="nomPersonne" class="java.lang.String"/>
-	<field name="prenomPersonne" class="java.lang.String"/>
+	<field name="nom_skipper" class="java.lang.String"/>
 	<field name="id_Regate" class="java.lang.String"/>
 	<field name="dateReg" class="java.sql.Date"/>
 	<field name="chalId" class="java.lang.String"/>
@@ -47,23 +48,23 @@ WHERE reg.id = "H201703"]]>
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="6"/>
+			<band height="55"/>
 		</groupFooter>
 	</group>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="91" splitType="Stretch">
+		<band height="131" splitType="Stretch">
 			<textField>
-				<reportElement x="27" y="13" width="247" height="30" uuid="de903301-843e-470a-8fa8-f66e22572852"/>
+				<reportElement x="30" y="3" width="247" height="30" uuid="de903301-843e-470a-8fa8-f66e22572852"/>
 				<textElement>
 					<font size="16" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Challenge d'" + IF($F{chalId}.startsWith("H"),"hiver","été") + " " + $F{chalId}.substring( 1 )]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="47" y="50" width="192" height="30" uuid="3540ea19-7703-4ffd-b009-bfaac1d58ae4"/>
+				<reportElement x="57" y="40" width="192" height="30" uuid="3540ea19-7703-4ffd-b009-bfaac1d58ae4"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
@@ -71,8 +72,12 @@ WHERE reg.id = "H201703"]]>
 			</textField>
 			<image hAlign="Right" vAlign="Middle">
 				<reportElement x="350" y="3" width="194" height="77" uuid="bfd103ff-666f-481f-8e25-9c01c19844c3"/>
-				<imageExpression><![CDATA["reports/dahouet.png"]]></imageExpression>
+				<imageExpression><![CDATA["dahouet.png"]]></imageExpression>
 			</image>
+			<textField>
+				<reportElement x="30" y="70" width="100" height="30" uuid="3b2baeaf-5038-4fe6-9aae-e5824decf5a0"/>
+				<textFieldExpression><![CDATA["Commissaires :"]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -116,7 +121,7 @@ WHERE reg.id = "H201703"]]>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="42" splitType="Stretch">
+		<band height="45" splitType="Stretch">
 			<line>
 				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="cb229859-ab9a-4aa3-afa2-84439642f4ee"/>
 				<graphicElement>
@@ -130,7 +135,7 @@ WHERE reg.id = "H201703"]]>
 			</textField>
 			<textField>
 				<reportElement style="Detail" x="250" y="0" width="111" height="15" uuid="ebaa5bdc-15e6-475b-a951-70b3da5f5b51"/>
-				<textFieldExpression><![CDATA[$F{prenomPersonne} + " " + $F{nomPersonne}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{nom_skipper}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement style="Detail" x="10" y="0" width="111" height="15" uuid="4b254ef3-98e3-413b-8c07-706dcd0474f8"/>
@@ -140,7 +145,7 @@ WHERE reg.id = "H201703"]]>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch">
+		<band height="60" splitType="Stretch">
 			<line>
 				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="401e0e59-de38-4dd2-8257-418cb489177c"/>
 				<graphicElement>

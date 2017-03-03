@@ -18,9 +18,8 @@ import javax.swing.JOptionPane;
  * @author Afpa
  */
 public class FormProprietaire extends javax.swing.JDialog {
-    
-    private final JComboBoxModel_Proprietaire model;
 
+    private final JComboBoxModel_Proprietaire model;
 
     /**
      * Creates new form FormProprietaire
@@ -31,10 +30,10 @@ public class FormProprietaire extends javax.swing.JDialog {
      */
     public FormProprietaire(java.awt.Frame parent, boolean modal, JComboBoxModel_Proprietaire model) {
         super(parent, modal);
-        
+
         initComponents();
         this.model = model;
-     
+
         System.out.println(model.getSelectedItem());
     }
 
@@ -177,29 +176,33 @@ public class FormProprietaire extends javax.swing.JDialog {
     }//GEN-LAST:event_jComboBox_Club_FormActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+
         ClubNautique clubNautique = (ClubNautique) jComboBox_Club_Form.getSelectedItem();
         String name = jTextField_Name.getText();
         String firstname = jTextField_FirstName.getText();
-        Calendar c = Calendar.getInstance();
-        c.setTime(jXDatePicker.getDate());
-        Date anneeNaissance = c.getTime();
-        
-        Proprietaire proprietaire = new Proprietaire(clubNautique, name, firstname, anneeNaissance);
-        
-        int id = ProprietaireDAO.insertProprietaire(proprietaire);
-        if (id == 0) {
-            
-            JOptionPane.showMessageDialog(this, "Une erreur s'est produite.", "Erreur", JOptionPane.ERROR_MESSAGE);
-            
+
+        if (jComboBox_Club_Form.getSelectedIndex() == -1 || firstname.isEmpty() || jXDatePicker.getDate() == null || name.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Certains Champs sont vides", "Erreur", JOptionPane.ERROR_MESSAGE);
         } else {
-            
-            JOptionPane.showMessageDialog(this, "Propriétaire ajouté avec succès !", "Succès", JOptionPane.INFORMATION_MESSAGE);
-            System.out.println(proprietaire.toString());
-           
-            this.model.addElement(proprietaire);
-            this.dispose();
-            
+            Calendar c = Calendar.getInstance();
+            c.setTime(jXDatePicker.getDate());
+            Date anneeNaissance = c.getTime();
+            Proprietaire proprietaire = new Proprietaire(clubNautique, name, firstname, anneeNaissance);
+
+            int id = ProprietaireDAO.insertProprietaire(proprietaire);
+            if (id == 0) {
+
+                JOptionPane.showMessageDialog(this, "Une erreur s'est produite.", "Erreur", JOptionPane.ERROR_MESSAGE);
+
+            } else {
+
+                JOptionPane.showMessageDialog(this, "Propriétaire ajouté avec succès !", "Succès", JOptionPane.INFORMATION_MESSAGE);
+                System.out.println(proprietaire.toString());
+
+                this.model.addElement(proprietaire);
+                this.dispose();
+
+            }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -236,10 +239,9 @@ public class FormProprietaire extends javax.swing.JDialog {
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            
+
             private JComboBoxModel_Proprietaire model;
-        
-            
+
             @Override
             public void run() {
                 FormProprietaire dialog = new FormProprietaire(new javax.swing.JFrame(), true, model);
