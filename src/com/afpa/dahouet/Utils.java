@@ -5,6 +5,7 @@
  */
 package com.afpa.dahouet;
 
+import com.afpa.dahouet.model.Commissaire;
 import com.afpa.dahouet.model.Personne;
 import java.util.Collections;
 import java.util.List;
@@ -132,13 +133,30 @@ public class Utils {
     public static int medianAge(List<Personne> personnes) {
 
         int median = 0;
+
         Collections.sort(personnes);
+        System.out.print("Liste d'âge classée par ordre croissante : " + "|");
+        for (Personne personne : personnes) {
 
-        int indexMedian = (personnes.size() + 1) / 2;
-        System.out.println(indexMedian);
-        median = personnes.get(indexMedian).getAge();
+            System.out.print(personne.getAge() + "|");
+        }
+           System.out.print("\n");
 
+        if (personnes.size() % 2 != 0) {
+
+            int indexMedian = (personnes.size() + 1) / 2;
+
+            median = personnes.get(indexMedian - 1).getAge();
+
+        } else {
+
+            int indexMedian = Math.round((personnes.size() + 1) / 2);
+
+            median = (personnes.get(indexMedian).getAge() + personnes.get(indexMedian - 1).getAge()) / 2;
+
+        }
         return median;
+
     }
 
 }

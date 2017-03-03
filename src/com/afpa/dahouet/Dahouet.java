@@ -48,16 +48,15 @@ public class Dahouet {
         win.setVisible(true);
 
         /* CONSOLE */
-        
         System.out.println(Color.ANSI_PURPLE + "****RESULTATS ALGORITHMIE & OBJECT****" + Color.ANSI_RESET);
-
+        System.out.println(Color.ANSI_PURPLE + "----Creation d'une liste de personnes----" + Color.ANSI_RESET);
         List<Personne> personnes = new ArrayList<>();
 
         Licencie lic1 = new Licencie(100, 100, 2016, "Nagepas", "Jean-Michel", "jmng@plouf.fr", 1980);
         personnes.add(lic1);
-        Licencie lic2 = new Licencie(100, 100, 2017, "Le Gall", "Nicolas", "jmng@plouf.fr", 1990);
+        Licencie lic2 = new Licencie(100, 150, 2017, "Le Gall", "Nicolas", "jmng@plouf.fr", 1995);
         personnes.add(lic2);
-        Licencie lic3 = new Licencie(100, 100, 2017, "Le Floc\'h", "Nicolas", "jmng@plouf.fr", 1995);
+        Licencie lic3 = new Licencie(100, 200, 2017, "Le Floc\'h", "Nicolas", "jmng@plouf.fr", 1995);
         personnes.add(lic3);
         Commissaire comi1 = new Commissaire("Sud-Bretagne", "Goff", "Erwann", "ccc@ccc.com", 1970);
         personnes.add(comi1);
@@ -67,12 +66,22 @@ public class Dahouet {
         personnes.add(pro2);
 
         Date date = new Date();
-
+        System.out.println(Color.ANSI_YELLOW + "Longueur de la liste : " + Color.ANSI_RESET + personnes.size());
+        System.out.println(Color.ANSI_PURPLE + "----Calcul de la moyenne et de la médiane----" + Color.ANSI_RESET);
         System.out.println(Color.ANSI_YELLOW + "Moyenne d\'âge : " + Color.ANSI_RESET + Utils.averageAge(personnes));
         System.out.println(Color.ANSI_YELLOW + "Valeur médiane : " + Color.ANSI_RESET + Utils.medianAge(personnes));
-
+        System.out.println(Color.ANSI_PURPLE + "----Affichage des personnes----" + Color.ANSI_RESET);
         System.out.print(Utils.toStringList(personnes));
 
+        System.out.println(Color.ANSI_PURPLE + "----Ajout d'une personne----" + Color.ANSI_RESET);
+
+        personnes.add(new Commissaire("Normadie", "Jacq", "Blo@fgf.fr", 1985));
+        System.out.println(Color.ANSI_YELLOW + "Longueur de la liste : " + Color.ANSI_RESET + personnes.size());
+        System.out.println(Color.ANSI_BLUE + personnes.get(personnes.size() - 1).toString());
+        System.out.println(Color.ANSI_PURPLE + "----Calcul de la moyenne et de la médiane----" + Color.ANSI_RESET);
+        System.out.println(Color.ANSI_YELLOW + "Moyenne d\'âge : " + Color.ANSI_RESET + Utils.averageAge(personnes));
+        System.out.println(Color.ANSI_YELLOW + "Valeur médiane : " + Color.ANSI_RESET + Utils.medianAge(personnes));
+        System.out.println(Color.ANSI_PURPLE + "----Test de la méthode de calcul de points----" + Color.ANSI_RESET);
         try {
             double pts = lic1.calculPoints(date, 20.5);
             System.out.print(Color.ANSI_YELLOW + "Nombre de pts : " + Color.ANSI_RESET + pts);
@@ -80,11 +89,25 @@ public class Dahouet {
 
             System.err.println("ERREUR : " + e.getClass() + " : " + e.getMessage());
         }
-        
-         System.out.println(Color.ANSI_PURPLE + "****FIN RESULTATS ALGORITHMIE & POO****" + Color.ANSI_RESET);
-        
-        /* FIN CONSOLE */
 
+        try {
+            double pts = lic2.calculPoints(date, 20.5);
+            System.out.println(Color.ANSI_YELLOW + "Nombre de pts : " + Color.ANSI_RESET + pts);
+        } catch (MismatchYearsException e) {
+
+            System.err.println("ERREUR : " + e.getClass() + " : " + e.getMessage());
+        }
+        try {
+            double pts = lic3.calculPoints(date, 20.5);
+            System.out.println(Color.ANSI_YELLOW + "Nombre de pts : " + Color.ANSI_RESET + pts);
+        } catch (MismatchYearsException e) {
+
+            System.err.println("ERREUR : " + e.getClass() + " : " + e.getMessage());
+        }
+
+        System.out.println(Color.ANSI_PURPLE + "****FIN RESULTATS ALGORITHMIE & POO****" + Color.ANSI_RESET);
+
+        /* FIN CONSOLE */
         get("/hello", (Request req, Response res) -> {
 
             List<Challenge> cs = ChallengeDAO.findAll();
