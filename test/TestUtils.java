@@ -37,28 +37,70 @@ public class TestUtils {
     public void tearDown() {
     }
 
-    @Test
-    public final void testCheckMailAtPresence() {
 
-        assertFalse(Utils.checkMail("eeeeee"));
-        System.err.println("No @ found");
-        assertFalse(Utils.checkMail("aa@aafr"));
-        System.err.println("No . found");
+
+    @Test
+    public final void testCheckLenghtBeforeAt() {
+
+        System.out.println("TEST : a@aa.frr");
         assertFalse(Utils.checkMail("a@aa.frr"));
-        System.err.println("Substring before @ size is below 2");
+        System.out.println("Substring before @ size is below 2");
+    }
+
+    @Test
+    public final void testCheckLenghtBeforeFinalPoint() {
+
+        System.out.println("TEST : aa@f.frr");
         assertFalse(Utils.checkMail("aa@f.frr"));
-        System.err.println("Substring between @ and . size is below 2");
-        assertFalse(Utils.checkMail("aa@ff.r"));
-        System.err.println("Substring after . size is below 2");
-        assertTrue(Utils.checkMail("aa@ff.fr"));
-        System.err.println("email is valid");
-        
-        assertTrue(Utils.checkMail("aa@ff.f.fr"));
-        System.err.println("email is valid");
-        
-        
-         assertFalse(Utils.checkMail("aa@ff.rf.f"));
-        System.err.println("Substring after final . is below 2");
+        System.out.println("Substring between @ and . size is below 2");
 
     }
+
+    @Test
+    public final void testCheckAtSignalPresence() {
+
+        System.out.println("TEST : eeeeee");
+        assertFalse(Utils.checkMail("eeeeee"));
+        System.out.println("No @ found");
+
+    }
+
+    @Test
+    public final void testCheckPointPresence() {
+
+        System.out.println("TEST : aa@aafr");
+        assertFalse(Utils.checkMail("aa@aafr"));
+        System.out.println("No . found");
+
+    }
+
+    @Test
+    public final void testCheckLenghtAfterLastPoint() {
+
+        System.out.println("TEST : aa@ff.r");
+        assertFalse(Utils.checkMail("aa@ff.r"));
+        System.out.println("Substring after . size is below 2");
+    }
+
+    @Test
+    public final void testCheckLenghtBetweenTwoPoints() {
+
+        System.out.println("TEST : aa@ff.rf.f");
+        assertFalse(Utils.checkMail("aa@ff.rf.f"));
+        System.out.println("Substring after final . is below 2");
+    }
+    
+        @Test
+    public final void testCheckValidMails() {
+
+        System.out.println("TEST : aa@ff.fr");
+        assertTrue(Utils.checkMail("aa@ff.fr"));
+        System.out.println("email is valid");
+
+        System.out.println("TEST : aa@ff.fr.fr");
+        assertTrue(Utils.checkMail("aa@ff.fr.fr"));
+        System.out.println("email is valid");
+
+    }
+
 }
