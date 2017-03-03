@@ -12,12 +12,13 @@ import com.afpa.dahouet.model.Proprietaire;
 import com.afpa.dahouet.model.Voilier;
 import javax.swing.JOptionPane;
 
-
 /**
  *
  * @author Afpa
  */
 public class VoilierForm extends javax.swing.JFrame {
+    
+    JComboBoxModel_Proprietaire boxModel_Proprietaire;
 
     /**
      * Creates new form VoilierForm
@@ -59,7 +60,7 @@ public class VoilierForm extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jComboBox_Classe = new javax.swing.JComboBox<>();
-        jButton3 = new javax.swing.JButton();
+        jButton_Add_Pro = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         JFileMenu = new javax.swing.JMenu();
         jMenuItem_AddProprio = new javax.swing.JMenuItem();
@@ -198,10 +199,11 @@ public class VoilierForm extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Ajouter Propriétaire...");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jButton_Add_Pro.setText("Ajouter Propriétaire...");
+        jButton_Add_Pro.setEnabled(false);
+        jButton_Add_Pro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButton_Add_ProActionPerformed(evt);
             }
         });
 
@@ -218,7 +220,7 @@ public class VoilierForm extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jButton2)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3)
+                        .addComponent(jButton_Add_Pro)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel_FormLayout.createSequentialGroup()
                         .addGroup(jPanel_FormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -278,7 +280,7 @@ public class VoilierForm extends javax.swing.JFrame {
                 .addGroup(jPanel_FormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(jButton_Add_Pro))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -290,6 +292,7 @@ public class VoilierForm extends javax.swing.JFrame {
         });
 
         jMenuItem_AddProprio.setText("Ajouter Propriétaire...");
+        jMenuItem_AddProprio.setEnabled(false);
         jMenuItem_AddProprio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem_AddProprioActionPerformed(evt);
@@ -353,7 +356,7 @@ public class VoilierForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBox_ProprietaireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_ProprietaireActionPerformed
-
+        
 
     }//GEN-LAST:event_jComboBox_ProprietaireActionPerformed
 
@@ -371,13 +374,13 @@ public class VoilierForm extends javax.swing.JFrame {
         if (jComboBox_Classe.isEnabled()) {
             jComboBox_Classe.setEnabled(false);
         }
-
+        
         jComboBox_Club.setSelectedIndex(-1);
         jComboBox_Proprietaire.setSelectedIndex(-1);
         if (jComboBox_Proprietaire.isEnabled()) {
             jComboBox_Proprietaire.setEnabled(false);
         }
-
+        
         jCheckBox_H.setSelected(false);
         jCheckBox_Q.setSelected(false);
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -387,33 +390,33 @@ public class VoilierForm extends javax.swing.JFrame {
         Integer indexProprio = jComboBox_Proprietaire.getSelectedIndex();
         Integer indexClasse = jComboBox_Club.getSelectedIndex();
         String nom = jTextField_NameVoilier.getText();
-
+        
         if (indexProprio == null || indexClasse == null || indexClub == null || nom.isEmpty()) {
-
+            
             JOptionPane.showMessageDialog(jPanel_Form, "Certains Champs sont vides", "Erreur", JOptionPane.ERROR_MESSAGE);
-
+            
         } else {
-
+            
             int confirm = JOptionPane.showConfirmDialog(jPanel_Form, "Voulez vous vraiment ajouter le voilier \"" + nom + "\" ?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (confirm == JOptionPane.YES_OPTION) {
                 Proprietaire proprietaire = (Proprietaire) jComboBox_Proprietaire.getSelectedItem();
                 ClasseVoilier classeVoilier = (ClasseVoilier) jComboBox_Classe.getSelectedItem();
                 Voilier voilier = new Voilier(proprietaire, classeVoilier, nom);
-
+                
                 int result = VoilierDAO.insertVoilier(voilier);
                 if (result == 0) {
-
+                    
                     JOptionPane.showMessageDialog(jPanel_Form, "Une erreur s'est produite.", "Erreur", JOptionPane.ERROR_MESSAGE);
-
+                    
                 } else {
-
+                    
                     JOptionPane.showMessageDialog(jPanel_Form, "Ajout réussi !", "Succès", JOptionPane.INFORMATION_MESSAGE);
-
+                    
                 }
-
+                
             }
         }
-
+        
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -436,7 +439,7 @@ public class VoilierForm extends javax.swing.JFrame {
             jCheckBox_Q.setEnabled(true);
             jComboBox_Classe.setEnabled(false);
             jComboBox_Classe.setSelectedIndex(-1);
-
+            
         }
 
     }//GEN-LAST:event_jCheckBox_HItemStateChanged
@@ -450,18 +453,21 @@ public class VoilierForm extends javax.swing.JFrame {
             jCheckBox_H.setEnabled(true);
             jComboBox_Classe.setSelectedIndex(-1);
             jComboBox_Classe.setEnabled(false);
-
+            
         }
     }//GEN-LAST:event_jCheckBox_QItemStateChanged
 
     private void jComboBox_ClubActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_ClubActionPerformed
         if (jComboBox_Club.getSelectedIndex() != -1) {
             ClubNautique clubNautique = (ClubNautique) jComboBox_Club.getModel().getSelectedItem();
-
-            jComboBox_Proprietaire.setModel(new JComboBoxModel_Proprietaire(clubNautique));
+            jButton_Add_Pro.setEnabled(true);
+            jMenuItem_AddProprio.setEnabled(true);
+            boxModel_Proprietaire = new JComboBoxModel_Proprietaire(clubNautique);
+            jComboBox_Proprietaire.setModel(boxModel_Proprietaire);
+             
             jComboBox_Proprietaire.setEnabled(true);
         }
-
+        
 
     }//GEN-LAST:event_jComboBox_ClubActionPerformed
 
@@ -474,27 +480,18 @@ public class VoilierForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem_QuitActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-
-//        try {
-//
-//            JasperReport report = (JasperReport) JRLoader.loadObject(getClass().getResource("/reports/dahouet.jasper"));
-//            JasperPrint print = JasperFillManager.fillReport(report, new HashMap<>(), DBConnection.gettingConnected());
-//            JasperExportManager.exportReportToPdfFile(print, "/home/vanel/Documents/dahouet.pdf");
-//        } catch (JRException ex) {
-//            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-
+        
 
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       FormProprietaire formProprietaire = new FormProprietaire(this, rootPaneCheckingEnabled);
-       formProprietaire.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void jButton_Add_ProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Add_ProActionPerformed
+        FormProprietaire formProprietaire = new FormProprietaire(this, rootPaneCheckingEnabled, boxModel_Proprietaire);
+        formProprietaire.setVisible(true);
+    }//GEN-LAST:event_jButton_Add_ProActionPerformed
 
     private void jMenuItem_AddProprioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_AddProprioActionPerformed
-        FormProprietaire formProprietaire = new FormProprietaire(this, rootPaneCheckingEnabled);
-       formProprietaire.setVisible(true);
+        FormProprietaire formProprietaire = new FormProprietaire(this, rootPaneCheckingEnabled, boxModel_Proprietaire);
+        formProprietaire.setVisible(true);
     }//GEN-LAST:event_jMenuItem_AddProprioActionPerformed
 
     /**
@@ -535,7 +532,7 @@ public class VoilierForm extends javax.swing.JFrame {
     private javax.swing.JMenu JRepportMenu;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton_Add_Pro;
     private javax.swing.JCheckBox jCheckBox_H;
     private javax.swing.JCheckBox jCheckBox_Q;
     private javax.swing.JComboBox<String> jComboBox_Classe;

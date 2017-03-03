@@ -38,6 +38,17 @@ public class JComboBoxModel_Proprietaire extends DefaultComboBoxModel{
     public int getSize() {
         return this.proprietaires.size(); 
     }
+
+    @Override
+    public void addElement(Object anObject) {
+        
+        Proprietaire p = (Proprietaire) anObject;
+        this.proprietaires.add(p);
+        this.fireIntervalAdded(anObject, 0, 0);
+        
+    }
+    
+    
     
 
     
