@@ -12,6 +12,7 @@ import com.afpa.dahouet.model.*;
 import com.afpa.dahouet.model.Licencie;
 import com.afpa.dahouet.ui.VoilierForm;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -111,8 +112,9 @@ public class Dahouet {
         get("/hello", (Request req, Response res) -> {
 
             List<Challenge> cs = ChallengeDAO.findAll();
-            Gson gson = new Gson();
+           Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
             String json = gson.toJson(cs);
+            res.type("application/json; charset=utf-8");
             return json;
         });
 
@@ -122,9 +124,10 @@ public class Dahouet {
         get("/currentChallenge", (Request req, Response res) -> {
 
             Challenge challenge = ChallengeDAO.getCurrentChallenge();
-            Gson gson = new Gson();
+            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").create();
             String json = gson.toJson(challenge);
-            res.type("application/json");
+        
+            res.type("application/json; charset=utf-8");
             return json;
 
         }
@@ -134,14 +137,15 @@ public class Dahouet {
 
             Challenge challenge = ChallengeDAO.getCurrentChallenge();
             List<Regate> regates = RegateDAO.findByChallenge(challenge);
-            Gson gson = new Gson();
-            res.type("application/json");
+             Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").create();
+            
+             res.type("application/json; charset=utf-8");
             return gson.toJson(regates);
 
         });
 
         get("/participation", (Request req, Response res) -> {
-            Gson gson = new Gson();
+              Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssz").create();
             Challenge challenge = ChallengeDAO.getCurrentChallenge();
             List<Regate> regates = RegateDAO.findByChallenge(challenge);
             List<Participation> participations = new ArrayList<>();
@@ -150,6 +154,7 @@ public class Dahouet {
                 participations.addAll(ParticipationDAO.findFromRegateWithResults(regate));
 
             }
+            res.type("application/json; charset=utf-8");
             gson.toJson(participations);
             return gson.toJson(participations);
 
@@ -160,10 +165,10 @@ public class Dahouet {
             String id = req.params(":id");
             Regate regate = RegateDAO.findById(id);
             List<Participation> participations = ParticipationDAO.findFromRegateWithoutResult(regate);
-            Gson gson = new Gson();
+               Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssz").create();
             String json = gson.toJson(participations);
 
-            res.type("application/json");
+            res.type("application/json; charset=utf-8");
 
             return json;
         });
@@ -173,10 +178,10 @@ public class Dahouet {
             String id = req.params(":id");
             Regate regate = RegateDAO.findById(id);
             List<Participation> participations = ParticipationDAO.findFromRegateWithResults(regate);
-            Gson gson = new Gson();
+     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssz").create();
             String json = gson.toJson(participations);
 
-            res.type("application/json");
+            res.type("application/json; charset=utf-8");
 
             return json;
         });
