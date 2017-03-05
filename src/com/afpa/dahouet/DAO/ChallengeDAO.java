@@ -71,7 +71,7 @@ public class ChallengeDAO {
                  Date debChal = rs.getDate("c.debChal");
                  Date finChal = rs.getDate("c.finChal");
                  
-                 challenge = new Challenge(id, finChal, finChal);
+                 challenge = new Challenge(id, debChal, finChal);
                  
                  
              }
@@ -103,7 +103,9 @@ public class ChallengeDAO {
                  Date finChal = rs.getDate("c.finChal");
                  String id = rs.getString("c.id");
                  
-                 challenge = new Challenge(id, finChal, finChal);
+            
+                 
+                 challenge = new Challenge(id, debChal, finChal);
                  
                  
              }
