@@ -46,6 +46,7 @@ public class TestUtils {
     }
 
     @Test
+  
     public final void testCheckLenghtBeforeAt() {
 
         System.out.println("TEST : a@aa.frr");
